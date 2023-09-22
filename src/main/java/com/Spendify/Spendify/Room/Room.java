@@ -18,6 +18,4 @@ public class Room {
     private Long id;
     @ManyToMany()
     private List<User> userList;
-
-
 }
