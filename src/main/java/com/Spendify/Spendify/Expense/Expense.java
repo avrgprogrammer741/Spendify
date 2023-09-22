@@ -32,10 +32,7 @@ public class Expense {
     @ManyToOne
     @JoinColumn(name = "currency_id")
     private Currency currency;
-    public Expense(Double quantity, Currency currency){
-        this.quantity = quantity;
-        this.currency = currency;
-    }
+
 
     @ManyToOne
     @JoinColumn(name = "debt_id")
@@ -45,5 +42,11 @@ public class Expense {
     @JoinColumn(name = "invoice_id")
     private Invoice invoice;
 
+    public Expense(Double quantity, Currency currency, Debt debt, Invoice invoice) {
+        this.quantity = quantity;
+        this.currency = currency;
+        this.debt = debt;
+        this.invoice = invoice;
+    }
 
 }

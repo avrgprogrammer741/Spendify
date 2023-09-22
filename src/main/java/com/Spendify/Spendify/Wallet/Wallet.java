@@ -12,16 +12,17 @@ public class Wallet {
     @Id
     private Long Id;
 
-    @Column(nullable = false,
+    @Column(name = "quantity_pln",
+            nullable = false,
             precision = 2
     )
-    private Double quantity;
+    private Double quantity_pln;
     @OneToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
 
     public Wallet(Double quantity, User user) {
-        this.quantity = quantity;
+        this.quantity_pln = quantity;
         this.user = user;
     }
 }

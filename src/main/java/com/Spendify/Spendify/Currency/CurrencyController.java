@@ -11,10 +11,14 @@ import java.util.List;
 @RequestMapping("api/v1/currencies")
 public class CurrencyController {
     private final CurrencyService currencyService;
+
     @Autowired
-    public CurrencyController(CurrencyService currencyService){
+    public CurrencyController(CurrencyService currencyService) {
         this.currencyService = currencyService;
     }
+
     @GetMapping()
-    public List<CurrencyDTO> getCurrencies(){return currencyService.getAllCurrencies();}
+    public List<CurrencyDTO> getCurrencies() {
+        return currencyService.getAllCurrencies();
+    }
 }
