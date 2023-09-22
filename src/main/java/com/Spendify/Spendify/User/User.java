@@ -56,8 +56,8 @@ public class User {
             cascade = CascadeType.ALL
     )
     private List<Invoice> invoices;
-    @ManyToMany(mappedBy = "user")
-    private List<Room> room;
+    @ManyToMany(mappedBy = "userList")
+    private List<Room> roomList;
 
     public User(String name, String surname, String password, String email, String image, Boolean isActive) {
         this.name = name;

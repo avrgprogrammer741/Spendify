@@ -11,8 +11,8 @@ public class InvoiceDTOMapper implements Function<Invoice, InvoiceDTO> {
                 invoice.getInvoiceId(),
                 invoice.getDate(),
                 invoice.getPrice(),
-                invoice.getBuyingprice(),
-                invoice.getSellingprice()
+                invoice.getBuyingPrice(),
+                invoice.getSellingPrice()
         );
     }
 }

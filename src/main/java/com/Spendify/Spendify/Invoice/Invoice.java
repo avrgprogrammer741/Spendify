@@ -41,7 +41,16 @@ public class Invoice {
             nullable = false
     )
     private Long idUser;
+    @Column(name = "buying_price",
+            length = 50,
+            nullable = false
+    )
+
     private Double buyingPrice;
+    @Column(name = "selling_price",
+            length = 50,
+            nullable = false
+    )
     private Double sellingPrice;
 
     @ManyToOne
@@ -50,16 +59,8 @@ public class Invoice {
     @OneToMany(mappedBy = "invoice")
     private List<Expense> expense;
 
-    @Column(name = "buyingprice",
-            length = 50,
-            nullable = false
-    )
-    private Double buyingprice;
-    @Column(name = "sellingprice",
-            length = 50,
-            nullable = false
-    )
-    private Double sellingprice;
+
+
 
     public Invoice() {
     }

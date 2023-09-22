@@ -3,6 +3,7 @@ package com.Spendify.Spendify.Room;
 import com.Spendify.Spendify.User.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.List;
 public class Room {
     @Id
     private Long id;
-    @OneToMany
+    @ManyToMany()
     private List<User> userList;
 
 
