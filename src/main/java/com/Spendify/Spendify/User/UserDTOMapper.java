@@ -3,7 +3,6 @@ package com.Spendify.Spendify.User;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 public class UserDTOMapper implements Function<User, UserDTO> {
