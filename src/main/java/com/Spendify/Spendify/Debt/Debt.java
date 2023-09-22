@@ -1,6 +1,7 @@
 package com.Spendify.Spendify.Debt;
 
 import com.Spendify.Spendify.Expense.Expense;
+import com.Spendify.Spendify.User.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -24,8 +26,9 @@ public class Debt {
     )
     private Long Id;
     @OneToMany(mappedBy = "debt")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Expense> expenses;
     @Column(nullable = false)
     private Date date;
+    @ManyToMany
+    private Set<User> users;
 }
