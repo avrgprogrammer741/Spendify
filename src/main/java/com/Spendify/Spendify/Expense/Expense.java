@@ -1,6 +1,8 @@
 package com.Spendify.Spendify.Expense;
 
 import com.Spendify.Spendify.Currency.Currency;
+import com.Spendify.Spendify.Debt.Debt;
+import com.Spendify.Spendify.Invoice.Invoice;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.*;
@@ -21,7 +23,6 @@ public class Expense {
             strategy = GenerationType.SEQUENCE,
             generator = "expense_sequence"
     )
-
     private Long id;
     @Column(name = "quantity",
             length = 50,
@@ -35,16 +36,14 @@ public class Expense {
         this.quantity = quantity;
         this.currency = currency;
     }
-//
-//    private Double quantity;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "debt_id")
-//    private Debt debt;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "invoice_id")
-//    private Invoice invoice;
+
+    @ManyToOne
+    @JoinColumn(name = "debt_id")
+    private Debt debt;
+
+    @ManyToOne
+    @JoinColumn(name = "invoice_id")
+    private Invoice invoice;
 
 
 }

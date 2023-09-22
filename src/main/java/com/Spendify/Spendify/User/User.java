@@ -1,8 +1,12 @@
 package com.Spendify.Spendify.User;
 
+import com.Spendify.Spendify.Invoice.Invoice;
+import com.Spendify.Spendify.Room.Room;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -47,6 +51,13 @@ public class User {
 
     private String image;
     private Boolean isActive;
+
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL
+    )
+    private List<Invoice> invoices;
+    @ManyToMany(mappedBy = "user")
+    private List<Room> room;
 
     public User(String name, String surname, String password, String email, String image, Boolean isActive) {
         this.name = name;

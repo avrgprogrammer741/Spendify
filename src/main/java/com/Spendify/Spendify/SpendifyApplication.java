@@ -22,30 +22,30 @@ public class SpendifyApplication {
     @Bean
     CommandLineRunner commandLineRunner(UserRepository userRepository, ExpenseRepository expenseRepository, InvoiceRepository invoiceRepository, CurrencyRepository currencyRepository){
         return args -> {
-            User Maciek = new User(
-                    "Maciek",
-                    "Kowalski",
-                    "admin",
-                    "m.krajew@gmail.com",
-                    null,
-                    true
-            );
-            userRepository.save(Maciek);
-            Invoice invoice = new Invoice(
-                    10.0,
-                    10.0,
-                    10.0
-            );
-            invoiceRepository.save(invoice);
-            Currency dollar = new Currency(
-                    "dollar"
-            );
-            currencyRepository.save(dollar);
-            Expense drinks = new Expense(
-                    200.0,
-                    dollar
-            );
-            expenseRepository.save(drinks);
+//            User Maciek = new User(
+//                    "Maciek",
+//                    "Kowalski",
+//                    "admin",
+//                    "m.krajew@gmail.com",
+//                    null,
+//                    true
+//            );
+//            userRepository.save(Maciek);
+//            Invoice invoice = new Invoice(
+//                    10.0,
+//                    10.0,
+//                    10.0
+//            );
+//            invoiceRepository.save(invoice);
+//            Currency dollar = new Currency(
+//                    "dollar"
+//            );
+//            currencyRepository.save(dollar);
+//            Expense drinks = new Expense(
+//                    200.0,
+//                    dollar
+//            );
+//            expenseRepository.save(drinks);
         };
     }
 }
