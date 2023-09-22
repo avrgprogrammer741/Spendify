@@ -1,4 +1,11 @@
 package com.Spendify.Spendify.Debt;
 
-public class DebtDTO {
-}
+import com.Spendify.Spendify.Expense.Expense;
+import com.Spendify.Spendify.User.User;
+
+import java.util.List;
+import java.util.Set;
+
+public record DebtDTO(Long debtId,
+                      java.util.Date date, List<Expense> expenses,
+                      Set<User> users) {}

@@ -24,7 +24,7 @@ public class Debt {
             strategy = GenerationType.SEQUENCE,
             generator = "debt_sequence"
     )
-    private Long Id;
+    private Long debtId;
     @OneToMany(mappedBy = "debt")
     private List<Expense> expenses;
     @Column(nullable = false)
