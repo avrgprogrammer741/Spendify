@@ -14,10 +14,10 @@ public class UserController {
     private final UserService userService;
     @Autowired
     public UserController(UserService userService) {
-        this.userService = userService;
+            this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping()
     public List<UserDTO> getUsers(){
         return userService.getAllUsers();
     }
