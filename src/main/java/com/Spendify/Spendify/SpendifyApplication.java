@@ -1,5 +1,7 @@
 package com.Spendify.Spendify;
 
+import com.Spendify.Spendify.Invoice.Invoice;
+import com.Spendify.Spendify.Invoice.InvoiceRepository;
 import com.Spendify.Spendify.User.User;
 import com.Spendify.Spendify.User.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -14,7 +16,7 @@ public class SpendifyApplication {
         SpringApplication.run(SpendifyApplication.class, args);
     }
     @Bean
-    CommandLineRunner commandLineRunner(UserRepository userRepository){
+    CommandLineRunner commandLineRunner(UserRepository userRepository, InvoiceRepository invoiceRepository){
         return args -> {
             User Maciek = new User(
                     "Maciek",
@@ -25,6 +27,12 @@ public class SpendifyApplication {
                     true
             );
             userRepository.save(Maciek);
+            Invoice invoice = new Invoice(
+                   66.0,
+                   55.0,
+                   55.0
+            );
+            invoiceRepository.save(invoice);
         };
     }
 }
