@@ -21,9 +21,25 @@ public class Invoice {
             strategy = GenerationType.SEQUENCE,
             generator = "invoice_sequence"
     )
+    @Column(name = "invoiceId",
+            length = 50,
+            nullable = false
+    )
     private Long invoiceId;
+    @Column(name = "date",
+            length = 50,
+            nullable = false
+    )
     private LocalDate date;
+    @Column(name = "name",
+            length = 50,
+            nullable = false
+    )
     private Double price;
+    @Column(name = "price",
+            length = 50,
+            nullable = false
+    )
     private Long idUser;
     private Double buyingPrice;
     private Double sellingPrice;
@@ -34,6 +50,16 @@ public class Invoice {
     @OneToMany(mappedBy = "invoice")
     private List<Expense> expense;
 
+    @Column(name = "buyingprice",
+            length = 50,
+            nullable = false
+    )
+    private Double buyingprice;
+    @Column(name = "sellingprice",
+            length = 50,
+            nullable = false
+    )
+    private Double sellingprice;
 
     public Invoice() {
     }
