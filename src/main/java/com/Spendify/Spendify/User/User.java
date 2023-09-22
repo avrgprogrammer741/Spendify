@@ -14,7 +14,8 @@ public class User {
     @Id
     @SequenceGenerator(name = "user_sequence",
             sequenceName = "user_sequence",
-            allocationSize = 1)
+            allocationSize = 1
+    )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "user_sequence"
@@ -43,6 +44,7 @@ public class User {
             length = 80
     )
     private String email;
+
     private String image;
     private Boolean isActive;
 
