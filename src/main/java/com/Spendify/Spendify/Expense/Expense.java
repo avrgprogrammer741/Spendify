@@ -1,5 +1,6 @@
 package com.Spendify.Spendify.Expense;
 
+import com.Spendify.Spendify.Currency.Currency;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.*;
@@ -27,12 +28,13 @@ public class Expense {
             nullable = false
     )
     private Double quantity;
-    public Expense(Double quantity){
+    @ManyToOne
+    @JoinColumn(name = "currency_id")
+    private Currency currency;
+    public Expense(Double quantity, Currency currency){
         this.quantity = quantity;
+        this.currency = currency;
     }
-//    @ManyToOne
-//    @JoinColumn(name = "currency_id")
-//    private Currency currency;
 //
 //    private Double quantity;
 //
