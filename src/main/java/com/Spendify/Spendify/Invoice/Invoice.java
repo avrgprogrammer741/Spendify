@@ -59,11 +59,11 @@ public class Invoice {
     public Invoice() {
     }
 
-    public Invoice(Long id, Date date, Double price, Long idUser, Double buyingprice, Double sellingPrice) {
-        this.invoiceId = id;
+    public Invoice(Date date, Double price, User user, Double buyingPrice, Double sellingPrice) {
         this.date = date;
         this.price = price;
-        this.buyingPrice = buyingprice;
+        this.buyingPrice = buyingPrice;
+        this.user = user;
         this.sellingPrice = sellingPrice;
     }
 
