@@ -1,6 +1,7 @@
 package com.Spendify.Spendify.Invoice;
 
 //import com.Spendify.Spendify.Expense.Expense;
+import com.Spendify.Spendify.Expense.Expense;
 import com.Spendify.Spendify.User.User;
 import com.Spendify.Spendify.User.UserRepository;
 import jakarta.persistence.*;
@@ -52,8 +53,8 @@ public class Invoice {
     @JoinColumn(name = "user_id")
     private User user;
 
-//    @OneToMany(mappedBy = "invoice")
-//    private List<Expense> expense;
+    @OneToMany(mappedBy = "invoice")
+    private List<Expense> expense;
     public Invoice() {
     }
 
@@ -65,8 +66,8 @@ public class Invoice {
         this.sellingPrice = sellingPrice;
     }
 
-    public Invoice(Double price, Double buyingPrice, Double sellingPrice) {
-//        this.date = date;
+    public Invoice(LocalDate date, Double price, Double buyingPrice, Double sellingPrice) {
+        this.date = date;
         this.price = price;
         this.buyingPrice = buyingPrice;
         this.sellingPrice = sellingPrice;

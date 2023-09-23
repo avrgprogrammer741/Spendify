@@ -17,6 +17,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.time.LocalDate;
+
 @SpringBootApplication
 public class SpendifyApplication {
 
@@ -35,7 +37,9 @@ public class SpendifyApplication {
 //                    true
 //            );
 //            userRepository.save(Maciek);
+//            LocalDate date = LocalDate.of(2020, 1, 8);
 //            Invoice invoice = new Invoice(
+//                    date,
 //                    10.0,
 //                    10.0,
 //                    10.0
@@ -54,13 +58,13 @@ public class SpendifyApplication {
 //                    invoice
 //            );
 
-            Expense drinks = new Expense(
-                    200.580279857,
-                    currencyRepository.getReferenceById(1L),
-                    debtRepository.getReferenceById(1L),
-                    invoiceRepository.getReferenceById(1L)
-            );
-            expenseRepository.save(drinks);
+//            Expense drinks = new Expense(
+//                    200.580279857,
+//                    currencyRepository.getReferenceById(1L),
+//                    debtRepository.getReferenceById(1L),
+//                    invoiceRepository.getReferenceById(1L)
+//            );
+//            expenseRepository.save(drinks);
 //            drinks.setDebt(debtRepository.getReferenceById(1L));
         };
     }

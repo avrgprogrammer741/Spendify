@@ -2,6 +2,7 @@ package com.Spendify.Spendify.Expense;
 
 import com.Spendify.Spendify.Currency.Currency;
 //import com.Spendify.Spendify.Debt.Debt;
+import com.Spendify.Spendify.Debt.Debt;
 import com.Spendify.Spendify.Invoice.Invoice;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -34,18 +35,18 @@ public class Expense {
     private Currency currency;
 
 
-//    @ManyToOne
-//    @JoinColumn(name = "debt_id")
-//    private Debt debt;
+    @ManyToOne
+    @JoinColumn(name = "debt_id")
+    private Debt debt;
 
     @ManyToOne
     @JoinColumn(name = "invoice_id")
     private Invoice invoice;
 
-    public Expense(Double quantity, Currency currency, Invoice invoice) {
+    public Expense(Double quantity, Currency currency, Debt debt, Invoice invoice) {
         this.quantity = quantity;
         this.currency = currency;
-//        this.debt = debt;
+        this.debt = debt;
         this.invoice = invoice;
     }
 
