@@ -24,11 +24,19 @@ public class Debt {
             strategy = GenerationType.SEQUENCE,
             generator = "debt_sequence"
     )
-    private Long Id;
+    private Long debtId;
     @OneToMany(mappedBy = "debt")
     private List<Expense> expenses;
     @Column(nullable = false)
     private Date date;
     @ManyToMany
     private Set<User> users;
+
+
+    public Debt(Long debtId, List<Expense> expenses, Date date, Set<User> users) {
+        this.debtId = debtId;
+        this.expenses = expenses;
+        this.date = date;
+        this.users = users;
+    }
 }
