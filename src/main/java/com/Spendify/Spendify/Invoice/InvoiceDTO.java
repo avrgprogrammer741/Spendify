@@ -1,9 +1,9 @@
 package com.Spendify.Spendify.Invoice;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public record InvoiceDTO(Long invoiceId,
-                         LocalDate date,
+                         Date date,
                          Double price,
                          Double buyingPrice,
                          Double sellingPrice
