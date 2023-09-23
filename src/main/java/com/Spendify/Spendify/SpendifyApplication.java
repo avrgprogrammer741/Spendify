@@ -1,5 +1,7 @@
 package com.Spendify.Spendify;
 
+import com.Spendify.Spendify.Balance.Balance;
+import com.Spendify.Spendify.Balance.BalanceRepository;
 import com.Spendify.Spendify.Currency.Currency;
 import com.Spendify.Spendify.Currency.CurrencyRepository;
 import com.Spendify.Spendify.Debt.Debt;
@@ -26,7 +28,7 @@ public class SpendifyApplication {
         SpringApplication.run(SpendifyApplication.class, args);
     }
     @Bean
-    CommandLineRunner commandLineRunner(UserRepository userRepository, ExpenseRepository expenseRepository, InvoiceRepository invoiceRepository, CurrencyRepository currencyRepository, WalletRepository walletRepository, DebtRepository debtRepository){
+    CommandLineRunner commandLineRunner(UserRepository userRepository, ExpenseRepository expenseRepository, InvoiceRepository invoiceRepository, CurrencyRepository currencyRepository, WalletRepository walletRepository, DebtRepository debtRepository, BalanceRepository balanceRepository){
         return args -> {
 //            User Maciek = new User(
 //                    "Maciek",
@@ -64,6 +66,8 @@ public class SpendifyApplication {
                     invoiceRepository.getReferenceById(1L)
             );
             expenseRepository.save(drinks);
+            Balance balance =new Balance(1L,currencyRepository.getReferenceById(1L),10);
+            balanceRepository.save(balance);
         };
     }
 }

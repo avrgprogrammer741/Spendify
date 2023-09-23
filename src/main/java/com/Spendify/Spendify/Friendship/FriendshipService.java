@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class FriendshipService {
     private final FriendshipRepository friendshipRepository;
     private final FriendshipDTOMapper friendshipDTOMapper;
-    @Autowired
+
     public List<FriendshipDTO> getAllFriendships() {
         return friendshipRepository.findAll()
                 .stream()
