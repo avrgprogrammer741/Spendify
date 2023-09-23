@@ -22,25 +22,6 @@ public class InvoiceService {
                 .map(invoiceDTOMapper)
                 .collect(Collectors.toList());
     }
-//    @Autowired
-//    public void addInvoice(Invoice invoice)
-//    {
-//        boolean exist=invoiceRepository.existsById(invoice.getInvoiceId());
-//        if (exist)
-//        {
-//            throw new IllegalStateException("invoice with this id exist");
-//        }
-//        invoiceRepository.save(invoice);
-//    }
-//    @Autowired
-//    public void deleteInvoice(Long invoiceId)
-//    {
-//        boolean exist=invoiceRepository.existsById(invoiceId);
-//        if (!exist)
-//        {
-//            throw new IllegalStateException("invoice with this id exist");
-//        }
-//        invoiceRepository.deleteById(invoiceId);
-//    }
+
 
 }

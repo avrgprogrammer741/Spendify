@@ -13,11 +13,11 @@ public class InvoiceController {
     {
         this.invoiceService=invoiceService;
     }
-    @GetMapping
-    public List<InvoiceDTO> getInvoices()
-    {
-        return invoiceService.getAllInvoices();
-    }
+//    @GetMapping
+//    public List<InvoiceDTO> getInvoices()
+//    {
+//        return invoiceService.getAllInvoices();
+//    }
 //    @DeleteMapping(path = "{invoiceId}")
 //    public void deleteInvoice(@PathVariable("invoiceId")Long invoiceId)
 //    {

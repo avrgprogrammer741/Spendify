@@ -1,6 +1,6 @@
 package com.Spendify.Spendify.Currency;
 
-import com.Spendify.Spendify.Expense.Expense;
+//import com.Spendify.Spendify.Expense.Expense;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

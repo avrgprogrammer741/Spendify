@@ -1,6 +1,7 @@
 package com.Spendify.Spendify.Friendship;
 
 import com.Spendify.Spendify.User.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -18,11 +19,19 @@ public class Friendship {
     private Long id;
     private Date friendshipDate;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "friend_id")
     private User friend;
+
+    public Friendship(Long id, Date friendshipDate, User user, User friend) {
+        this.id = id;
+        this.friendshipDate = friendshipDate;
+        this.user = user;
+        this.friend = friend;
+    }
 }
