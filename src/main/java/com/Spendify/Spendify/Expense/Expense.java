@@ -25,8 +25,8 @@ public class Expense {
     )
     private Long id;
     @Column(name = "quantity",
-            length = 50,
-            nullable = false
+            nullable = false,
+            precision = 2
     )
     private Double quantity;
     @ManyToOne

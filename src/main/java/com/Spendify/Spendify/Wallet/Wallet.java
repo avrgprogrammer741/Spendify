@@ -17,7 +17,7 @@ public class Wallet {
             precision = 2
     )
     private Double quantity_pln;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
 

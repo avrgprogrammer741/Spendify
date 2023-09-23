@@ -11,7 +11,6 @@ public class ExpenseService {
     private final ExpenseRepository expenseRepository;
     private final ExpenseDTOMapper expenseDTOMapper;
 
-    @Autowired
     public List<ExpenseDTO> getAllExpenses() {
         return expenseRepository.findAll()
                 .stream()

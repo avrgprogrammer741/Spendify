@@ -11,7 +11,7 @@ public class WalletDTOMapper implements Function<Wallet, WalletDTO> {
         return new WalletDTO(
                 wallet.getId(),
                 wallet.getQuantity_pln(),
-                wallet.getUser()
+                wallet.getUser().getId()
         );
     }
 }
