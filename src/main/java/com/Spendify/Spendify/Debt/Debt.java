@@ -5,8 +5,6 @@ import com.Spendify.Spendify.User.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +22,7 @@ public class Debt {
             strategy = GenerationType.SEQUENCE,
             generator = "debt_sequence"
     )
-    private Long debtId;
+    private Long Id;
     @OneToMany(mappedBy = "debt")
     private List<Expense> expenses;
     @Column(nullable = false)
@@ -33,8 +31,7 @@ public class Debt {
     private Set<User> users;
 
 
-    public Debt(Long debtId, List<Expense> expenses, Date date, Set<User> users) {
-        this.debtId = debtId;
+    public Debt(List<Expense> expenses, Date date, Set<User> users) {
         this.expenses = expenses;
         this.date = date;
         this.users = users;

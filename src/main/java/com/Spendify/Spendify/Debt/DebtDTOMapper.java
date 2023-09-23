@@ -1,7 +1,5 @@
 package com.Spendify.Spendify.Debt;
 
-import com.Spendify.Spendify.User.User;
-import com.Spendify.Spendify.User.UserDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
@@ -10,7 +8,7 @@ import java.util.function.Function;
 public class DebtDTOMapper implements Function<Debt, DebtDTO> {
     public DebtDTO apply(Debt debt) {
         return new DebtDTO(
-                debt.getDebtId(),
+                debt.getId(),
                 debt.getDate(),
                 debt.getExpenses(),
                 debt.getUsers()

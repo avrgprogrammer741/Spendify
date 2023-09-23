@@ -1,6 +1,6 @@
 package com.Spendify.Spendify.Invoice;
 
-//import com.Spendify.Spendify.Expense.Expense;
+import com.Spendify.Spendify.Expense.Expense;
 import com.Spendify.Spendify.Expense.Expense;
 import com.Spendify.Spendify.User.User;
 import com.Spendify.Spendify.User.UserRepository;
@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -31,7 +32,7 @@ public class Invoice {
             length = 50,
             nullable = false
     )
-    private LocalDate date;
+    private Date date;
     @Column(name = "price",
             length = 50,
             nullable = false
@@ -58,7 +59,7 @@ public class Invoice {
     public Invoice() {
     }
 
-    public Invoice(Long id, LocalDate date, Double price, Long idUser, Double buyingprice, Double sellingPrice) {
+    public Invoice(Long id, Date date, Double price, Long idUser, Double buyingprice, Double sellingPrice) {
         this.invoiceId = id;
         this.date = date;
         this.price = price;
@@ -66,7 +67,7 @@ public class Invoice {
         this.sellingPrice = sellingPrice;
     }
 
-    public Invoice(LocalDate date, Double price, Double buyingPrice, Double sellingPrice) {
+    public Invoice(Date date, Double price, Double buyingPrice, Double sellingPrice) {
         this.date = date;
         this.price = price;
         this.buyingPrice = buyingPrice;
