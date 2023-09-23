@@ -31,4 +31,12 @@ public class Debt {
     private Date date;
     @ManyToMany
     private Set<User> users;
+
+
+    public Debt(Long debtId, List<Expense> expenses, Date date, Set<User> users) {
+        this.debtId = debtId;
+        this.expenses = expenses;
+        this.date = date;
+        this.users = users;
+    }
 }

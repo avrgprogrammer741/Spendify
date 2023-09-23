@@ -25,4 +25,11 @@ public class Friendship {
     @ManyToOne
     @JoinColumn(name = "friend_id")
     private User friend;
+
+    public Friendship(Long id, Date friendshipDate, User user, User friend) {
+        this.id = id;
+        this.friendshipDate = friendshipDate;
+        this.user = user;
+        this.friend = friend;
+    }
 }
