@@ -2,6 +2,8 @@ package com.Spendify.Spendify.User;
 
 //import com.Spendify.Spendify.Debt.Debt;
 //import com.Spendify.Spendify.Invoice.Invoice;
+import com.Spendify.Spendify.Debt.Debt;
+import com.Spendify.Spendify.Invoice.Invoice;
 import com.Spendify.Spendify.Room.Room;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -54,20 +56,15 @@ public class User {
     @Column(nullable = false)
     private Boolean isActive;
 
-//    @OneToMany(mappedBy = "user",
-//            cascade = CascadeType.ALL
-//    )
-//    private List<Invoice> invoices;
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL
+    )
+    private List<Invoice> invoices;
     @ManyToMany(mappedBy = "userList")
     private List<Room> roomList;
-//    @ManyToMany(mappedBy = "users")
-//    private List<Debt> debtList;
+    @ManyToMany(mappedBy = "users")
+    private List<Debt> debtList;
     @ManyToMany
-    @JoinTable(
-            name = "friendships",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "friend_id")
-    )
     private List<User> friends;
 
     public User(String name, String surname, String password, String email, String image, Boolean isActive) {

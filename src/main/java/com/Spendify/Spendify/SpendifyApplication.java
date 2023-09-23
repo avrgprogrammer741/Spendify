@@ -60,14 +60,14 @@ public class SpendifyApplication {
 //                    invoice
 //            );
 
-            Expense drinks = new Expense(
-                    200.580279857,
-                    debtRepository.getReferenceById(1L),
-                    invoiceRepository.getReferenceById(1L)
-            );
-            expenseRepository.save(drinks);
-            Balance balance =new Balance(1L,currencyRepository.getReferenceById(1L),10);
-            balanceRepository.save(balance);
+//            Expense drinks = new Expense(
+//                    200.580279857,
+//                    debtRepository.getReferenceById(1L),
+//                    invoiceRepository.getReferenceById(1L)
+//            );
+//            expenseRepository.save(drinks);
+//            Balance balance =new Balance(1L,currencyRepository.getReferenceById(1L),10);
+//            balanceRepository.save(balance);
         };
     }
 }

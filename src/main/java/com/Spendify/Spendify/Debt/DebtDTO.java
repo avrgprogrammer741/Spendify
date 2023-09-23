@@ -7,5 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 public record DebtDTO(Long debtId,
-                      java.util.Date date, List<Expense> expenses,
-                      Set<User> users) {}
+                      java.util.Date date,
+                      List<Long> expensesIds,
+                      List<Long> UserIds) {}

@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 public class DebtService {
     private final DebtRepository debtRepository;
     private final DebtDTOMapper debtDTOMapper;
-    @Autowired
     public List<DebtDTO> getAllDebts() {
         return debtRepository.findAll()
                 .stream()

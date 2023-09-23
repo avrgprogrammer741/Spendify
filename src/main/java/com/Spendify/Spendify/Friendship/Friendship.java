@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-
 @NoArgsConstructor
 @Data
 @Entity
@@ -28,7 +27,6 @@ public class Friendship {
     private Long id;
     private Date friendshipDate;
 
-    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user;
