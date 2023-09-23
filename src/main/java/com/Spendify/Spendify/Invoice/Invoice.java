@@ -1,6 +1,6 @@
 package com.Spendify.Spendify.Invoice;
 
-import com.Spendify.Spendify.Expense.Expense;
+//import com.Spendify.Spendify.Expense.Expense;
 import com.Spendify.Spendify.User.User;
 import com.Spendify.Spendify.User.UserRepository;
 import jakarta.persistence.*;
@@ -21,7 +21,7 @@ public class Invoice {
             strategy = GenerationType.SEQUENCE,
             generator = "invoice_sequence"
     )
-    @Column(name = "invoiceId",
+    @Column(name = "invoice_id",
             length = 50,
             nullable = false
     )
@@ -31,21 +31,16 @@ public class Invoice {
             nullable = false
     )
     private LocalDate date;
-    @Column(name = "name",
-            length = 50,
-            nullable = false
-    )
-    private Double price;
     @Column(name = "price",
             length = 50,
             nullable = false
     )
-    private Long idUser;
+    private Double price;
+
     @Column(name = "buying_price",
             length = 50,
             nullable = false
     )
-
     private Double buyingPrice;
     @Column(name = "selling_price",
             length = 50,
@@ -56,12 +51,9 @@ public class Invoice {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany(mappedBy = "invoice")
-    private List<Expense> expense;
 
-
-
-
+//    @OneToMany(mappedBy = "invoice")
+//    private List<Expense> expense;
     public Invoice() {
     }
 
@@ -69,7 +61,6 @@ public class Invoice {
         this.invoiceId = id;
         this.date = date;
         this.price = price;
-        this.idUser = idUser;
         this.buyingPrice = buyingprice;
         this.sellingPrice = sellingPrice;
     }
@@ -88,7 +79,6 @@ public class Invoice {
                 "id=" + invoiceId +
                 ", date=" + date +
                 ", price=" + price +
-                ", idUser=" + idUser +
                 ", buyingprice=" + buyingPrice +
                 ", sellingprice=" + sellingPrice +
                 '}';
