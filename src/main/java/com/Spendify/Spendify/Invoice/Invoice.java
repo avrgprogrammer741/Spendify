@@ -1,5 +1,6 @@
 package com.Spendify.Spendify.Invoice;
 
+import com.Spendify.Spendify.Currency.Currency;
 import com.Spendify.Spendify.Expense.Expense;
 import com.Spendify.Spendify.Expense.Expense;
 import com.Spendify.Spendify.User.User;
@@ -54,24 +55,31 @@ public class Invoice {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "currency_id")
+    private Currency currency;
+
     @OneToMany(mappedBy = "invoice")
     private List<Expense> expense;
+
     public Invoice() {
     }
 
-    public Invoice(Date date, Double price, User user, Double buyingPrice, Double sellingPrice) {
+    public Invoice(Date date, Double price, Currency currency, User user, Double buyingPrice, Double sellingPrice) {
         this.date = date;
         this.price = price;
         this.buyingPrice = buyingPrice;
         this.user = user;
         this.sellingPrice = sellingPrice;
+        this.currency = currency;
     }
 
-    public Invoice(Date date, Double price, Double buyingPrice, Double sellingPrice) {
+    public Invoice(Date date, Double price, Currency currency, Double buyingPrice, Double sellingPrice) {
         this.date = date;
         this.price = price;
         this.buyingPrice = buyingPrice;
         this.sellingPrice = sellingPrice;
+        this.currency = currency;
     }
 
 

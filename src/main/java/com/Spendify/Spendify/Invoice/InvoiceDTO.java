@@ -6,6 +6,7 @@ public record InvoiceDTO(Long invoiceId,
                          Date date,
                          Double price,
                          Double buyingPrice,
-                         Double sellingPrice
+                         Double sellingPrice,
+                         Long currency_id
                          ){
 }

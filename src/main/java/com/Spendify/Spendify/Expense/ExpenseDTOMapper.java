@@ -12,7 +12,6 @@ public class ExpenseDTOMapper implements Function<Expense, ExpenseDTO> {
         return new ExpenseDTO(
                 expense.getId(),
                 expense.getQuantity(),
-                expense.getCurrency().getId(),
                 expense.getDebt().getId(),
                 expense.getInvoice().getInvoiceId()
         );

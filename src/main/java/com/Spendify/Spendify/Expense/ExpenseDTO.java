@@ -6,7 +6,6 @@ import com.Spendify.Spendify.Invoice.Invoice;
 
 public record ExpenseDTO(Long id,
                          Double quantity,
-                         Long currency_id,
                          Long debt_id,
                          Long invoice_id
                          ) {

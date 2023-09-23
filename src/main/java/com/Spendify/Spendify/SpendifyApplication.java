@@ -58,14 +58,12 @@ public class SpendifyApplication {
 //                    invoice
 //            );
 
-//            Expense drinks = new Expense(
-//                    200.580279857,
-//                    currencyRepository.getReferenceById(1L),
-//                    debtRepository.getReferenceById(1L),
-//                    invoiceRepository.getReferenceById(1L)
-//            );
-//            expenseRepository.save(drinks);
-//            drinks.setDebt(debtRepository.getReferenceById(1L));
+            Expense drinks = new Expense(
+                    200.580279857,
+                    debtRepository.getReferenceById(1L),
+                    invoiceRepository.getReferenceById(1L)
+            );
+            expenseRepository.save(drinks);
         };
     }
 }
