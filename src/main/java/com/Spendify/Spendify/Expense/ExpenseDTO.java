@@ -9,4 +9,5 @@ public record ExpenseDTO(Long id,
                          Long debt_id,
                          Long invoice_id
                          ) {
+
 }
