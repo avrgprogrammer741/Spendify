@@ -25,15 +25,15 @@ public class FriendshipService {
         this.friendshipDTOMapper = friendshipDTOMapper;
     }
 
-    public Optional<Friendship> getUserFriendship(Long userId) throws Exception {
-        Optional<Friendship> friendship = friendshipRepository.findByUser(userId);
-        if (friendship.isPresent()) {
-            Friendship foundFriendship = friendship.get();
-            return Optional.of(foundFriendship);
-        } else {
-            throw new Exception("Error");
-        }
-    }
+//    public Optional<Friendship> getUserFriendship(Long userId) throws Exception {
+//        Optional<Friendship> friendship = friendshipRepository.findByUser(userId);
+//        if (friendship.isPresent()) {
+//            Friendship foundFriendship = friendship.get();
+//            return Optional.of(foundFriendship);
+//        } else {
+//            throw new Exception("Error");
+//        }
+//    }
     public void setUserFriendship(Date date, User user, User friend) {
         Friendship friendship=new Friendship(date,user,friend);
         friendshipRepository.save(friendship);

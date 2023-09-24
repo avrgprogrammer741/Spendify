@@ -22,10 +22,10 @@ public class FriendshipController {
         return friendshipService.getAllFriendships();
     }
 
-    @GetMapping("{userId}")
-    public Optional<Friendship> getFriendship(@PathVariable Long userId) throws Exception {
-        return friendshipService.getUserFriendship(userId);
-    }
+//    @GetMapping("{userId}")
+//    public Optional<Friendship> getFriendship(@PathVariable Long userId) throws Exception {
+//        return friendshipService.getUserFriendship(userId);
+//    }
     @PutMapping
     public void setFriendship(Date date, User user, User friend)
     {

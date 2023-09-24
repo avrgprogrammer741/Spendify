@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
-    Optional<Invoice> findByUser(Long userId);
+//    Optional<Invoice> findByUser(Long userId);
 }

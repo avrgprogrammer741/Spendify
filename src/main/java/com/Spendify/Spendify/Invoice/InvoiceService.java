@@ -39,13 +39,13 @@ public class InvoiceService {
         invoiceRepository.save(invoice);
     }
 
-    public Optional<Invoice> getUserInvoice(Long userId) throws Exception {
-        Optional<Invoice> invoice = invoiceRepository.findByUser(userId);
-        if (invoice.isPresent()) {
-            Invoice foundInvoice = invoice.get();
-            return Optional.of(foundInvoice);
-        } else {
-            throw new Exception("Error");
-        }
-    }
+//    public Optional<Invoice> getUserInvoice(Long userId) throws Exception {
+//        Optional<Invoice> invoice = invoiceRepository.findByUser(userId);
+//        if (invoice.isPresent()) {
+//            Invoice foundInvoice = invoice.get();
+//            return Optional.of(foundInvoice);
+//        } else {
+//            throw new Exception("Error");
+//        }
+//    }
 }

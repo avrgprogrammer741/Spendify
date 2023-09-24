@@ -29,9 +29,9 @@ public class InvoiceController {
     {
         invoiceService.addInvoice(invoice);
     }
-    @GetMapping("{userId}")
-    public Optional<Invoice> getUserInvoice(@PathVariable Long userId) throws Exception {
-        return invoiceService.getUserInvoice(userId);
-    }
+//    @GetMapping("{userId}")
+//    public Optional<Invoice> getUserInvoice(@PathVariable Long userId) throws Exception {
+//        return invoiceService.getUserInvoice(userId);
+//    }
 
 }

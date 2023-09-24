@@ -19,16 +19,16 @@ public class DebtController {
     public List<DebtDTO> getDebts() {
         return debtService.getAllDebts();
     }
-    @GetMapping("{userId}")
-    public Optional<Debt> getUserDebt(@PathVariable Long userId)
-    {
-        return debtService.getUserDebt(userId);
-    }
+//    @GetMapping("{userId}")
+//    public Optional<Debt> getUserDebt(@PathVariable Long userId)
+//    {
+//        return debtService.getUserDebt(userId);
+//    }
 
-    @DeleteMapping
-    public void deleteUserDebt(User user) throws Exception {
-        debtService.deleteDebt(user);
-    }
+//    @DeleteMapping
+//    public void deleteUserDebt(User user) throws Exception {
+//        debtService.deleteDebt(user);
+//    }
     @PutMapping
     public void setUserDebt(Debt debt)
     {

@@ -23,20 +23,20 @@ public class DebtService {
         this.debtDTOMapper = debtDTOMapper;
     }
 
-    public Optional<Debt> getUserDebt(Long userId) {
-        return debtRepository.findByUserId(userId);
-    }
+//    public Optional<Debt> getUserDebt(Long userId) {
+//        return debtRepository.findByUserId(userId);
+//    }
 
-    public void deleteDebt(User user) throws Exception {
-        Optional<Debt> debt = debtRepository.findByUserId(user.getId());
-        if (debt.isPresent()) {
-            Debt foundDebt = debt.get();
-            debtRepository.delete(foundDebt);
-        } else {
-            throw new Exception("Error");
-        }
-
-    }
+//    public void deleteDebt(User user) throws Exception {
+//        Optional<Debt> debt = debtRepository.findByUserId(user.getId());
+//        if (debt.isPresent()) {
+//            Debt foundDebt = debt.get();
+//            debtRepository.delete(foundDebt);
+//        } else {
+//            throw new Exception("Error");
+//        }
+//
+//    }
 
     public void setDebt(Debt debt) {
         debtRepository.save(debt);
