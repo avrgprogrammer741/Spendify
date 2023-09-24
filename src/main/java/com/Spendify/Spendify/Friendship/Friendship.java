@@ -1,7 +1,6 @@
 package com.Spendify.Spendify.Friendship;
 
 import com.Spendify.Spendify.User.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,8 +34,7 @@ public class Friendship {
     @JoinColumn(name = "friend_id")
     private User friend;
 
-    public Friendship(Long id, Date friendshipDate, User user, User friend) {
-        this.id = id;
+    public Friendship(Date friendshipDate, User user, User friend) {
         this.friendshipDate = friendshipDate;
         this.user = user;
         this.friend = friend;
