@@ -1,13 +1,10 @@
 package com.Spendify.Spendify.Expense;
 
-import com.Spendify.Spendify.Currency.Currency;
-import com.Spendify.Spendify.Debt.Debt;
-import com.Spendify.Spendify.Invoice.Invoice;
+import java.util.Date;
 
 public record ExpenseDTO(Long id,
-                         Double quantity,
-                         Long debt_id,
-                         Long invoice_id
-                         ) {
-
-}
+                               Double quantity,
+//                               Long debt_id,
+                               Long invoice_id,
+                                Date date,
+                               Double left) { }

@@ -11,12 +11,16 @@ public class WalletService {
     private final WalletRepository walletRepository;
     private final WalletDTOMapper walletDTOMapper;
 
-    @Autowired
     public List<WalletDTO> getAllWallets() {
         return walletRepository.findAll()
                 .stream()
                 .map(walletDTOMapper)
                 .collect(Collectors.toList());
+    }
+    public WalletDTO getWallet(Long walletId) {
+        return walletRepository.findById(walletId)
+                .map(walletDTOMapper)
+                .orElseThrow(() -> new IllegalStateException("Expense not found with ID: " + walletId));
     }
 
     public WalletService(WalletRepository walletRepository, WalletDTOMapper walletDTOMapper) {

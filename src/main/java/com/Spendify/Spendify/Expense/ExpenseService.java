@@ -1,11 +1,9 @@
 package com.Spendify.Spendify.Expense;
 
-import com.Spendify.Spendify.Debt.Debt;
-import com.Spendify.Spendify.Debt.DebtRepository;
-import com.Spendify.Spendify.Debt.DebtService;
+//import com.Spendify.Spendify.Debt.Debt;
+//import com.Spendify.Spendify.Debt.DebtRepository;
 import com.Spendify.Spendify.Invoice.Invoice;
 import com.Spendify.Spendify.Invoice.InvoiceRepository;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +12,7 @@ import java.util.stream.Collectors;
 @Service
 public class ExpenseService {
     private final ExpenseRepository expenseRepository;
-    private final DebtRepository debtRepository;
+//    private final DebtRepository debtRepository;
     private final InvoiceRepository invoiceRepository;
     private final ExpenseDTOMapper expenseDTOMapper;
 
@@ -35,6 +33,7 @@ public class ExpenseService {
     public void updateExpense (ExpenseUpdateRequest expenseUpdateRequest, Long expenseId) {
         Expense expense = expenseRepository.getReferenceById(expenseId);
         expense.setQuantity(expenseUpdateRequest.quantity());
+        expense.setAmountLeft(expenseUpdateRequest.left());
         expenseRepository.save(expense);
     }
     public void deleteExpense (Long expenseId) {
@@ -42,27 +41,30 @@ public class ExpenseService {
         expenseRepository.delete(expense);
     }
     public void addExpense(ExpenseAddRequest addRequest) {
-        Debt debt = debtRepository.findById(addRequest.debtId())
-                .orElseThrow(() -> new IllegalArgumentException("Debt not found with ID: " + addRequest.debtId()));
+        System.out.println("tet");
+//        Debt debt = debtRepository.findById(addRequest.debtId())
+//                .orElseThrow(() -> new IllegalArgumentException("Debt not found with ID: " + addRequest.debtId()));
 
         Invoice invoice = invoiceRepository.findById(addRequest.invoiceId())
                 .orElseThrow(() -> new IllegalArgumentException("Invoice not found with ID: " + addRequest.invoiceId()));
 
         Expense expense = new Expense();
-        expense.setDebt(debt);
+//        expense.setDebt(debt);
         expense.setInvoice(invoice);
         expense.setQuantity(addRequest.quantity());
+        expense.setDate(addRequest.date());
+        expense.setAmountLeft(addRequest.amountLeft());
         expenseRepository.save(expense);
     }
 
     public ExpenseService(ExpenseRepository expenseRepository,
-                          DebtRepository debtRepository,
+//                          DebtRepository debtRepository,
                           InvoiceRepository invoiceRepository,
                           ExpenseDTOMapper expenseDTOMapper) {
         this.expenseRepository = expenseRepository;
         this.expenseDTOMapper = expenseDTOMapper;
-        this.debtRepository = debtRepository;
+//        this.debtRepository = debtRepository;
         this.invoiceRepository =invoiceRepository ;
-
     }
+
 }

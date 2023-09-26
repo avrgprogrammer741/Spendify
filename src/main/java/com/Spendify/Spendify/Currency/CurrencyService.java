@@ -10,12 +10,17 @@ import java.util.stream.Collectors;
 public class CurrencyService {
     private final CurrencyRepository currencyRepository;
     private final CurrencyDTOMapper currencyDTOMapper;
-    @Autowired
+
     public List<CurrencyDTO> getAllCurrencies(){
         return currencyRepository.findAll()
                 .stream()
                 .map(currencyDTOMapper)
                 .collect(Collectors.toList());
+    }
+    public CurrencyDTO getCurrency(Long currencyId){
+        return currencyRepository.findById(currencyId)
+                .map(currencyDTOMapper)
+                .orElseThrow(() -> new IllegalStateException("Currency not found with ID: " + currencyId));
     }
     public CurrencyService(CurrencyRepository currencyRepository, CurrencyDTOMapper currencyDTOMapper){
         this.currencyRepository = currencyRepository;

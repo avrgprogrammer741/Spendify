@@ -3,8 +3,6 @@ package com.Spendify.Spendify.Expense;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
-import java.util.stream.Collectors;
-
 @Service
 public class ExpenseDTOMapper implements Function<Expense, ExpenseDTO> {
     @Override
@@ -12,8 +10,10 @@ public class ExpenseDTOMapper implements Function<Expense, ExpenseDTO> {
         return new ExpenseDTO(
                 expense.getId(),
                 expense.getQuantity(),
-                expense.getDebt().getId(),
-                expense.getInvoice().getInvoiceId()
+//                expense.getDebt().getId(),
+                expense.getInvoice().getInvoiceId(),
+                expense.getDate(),
+                expense.getAmountLeft()
         );
     }
 }

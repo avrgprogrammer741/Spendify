@@ -5,5 +5,5 @@ import java.util.Date;
 
 public record FriendshipDTO (Long id,
                              Date friendshipDate,
-                             User user,
-                             User friend){}
+                             Long userId,
+                             Long friendId){}

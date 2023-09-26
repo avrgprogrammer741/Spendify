@@ -11,8 +11,8 @@ public class FriendshipDTOMapper implements Function<Friendship,FriendshipDTO> {
         return new FriendshipDTO(
                 friendship.getId(),
                 friendship.getFriendshipDate(),
-                friendship.getUser(),
-                friendship.getFriend()
+                friendship.getUser().getId(),
+                friendship.getFriend().getId()
         );
     }
 }

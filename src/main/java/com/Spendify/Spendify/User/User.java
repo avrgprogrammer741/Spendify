@@ -1,8 +1,5 @@
 package com.Spendify.Spendify.User;
 
-//import com.Spendify.Spendify.Debt.Debt;
-//import com.Spendify.Spendify.Invoice.Invoice;
-import com.Spendify.Spendify.Debt.Debt;
 import com.Spendify.Spendify.Invoice.Invoice;
 import com.Spendify.Spendify.Room.Room;
 import jakarta.persistence.*;
@@ -62,8 +59,8 @@ public class User {
     private List<Invoice> invoices;
     @ManyToMany(mappedBy = "userList")
     private List<Room> roomList;
-    @ManyToMany(mappedBy = "users")
-    private List<Debt> debtList;
+//    @ManyToMany(mappedBy = "users")
+//    private List<Debt> debtList;
     @ManyToMany
     private List<User> friends;
 

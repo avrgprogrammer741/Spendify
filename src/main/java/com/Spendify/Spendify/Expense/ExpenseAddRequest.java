@@ -1,6 +1,10 @@
 package com.Spendify.Spendify.Expense;
 
+import java.util.Date;
+
 public record ExpenseAddRequest(Double quantity,
-                                Long debtId,
-                                Long invoiceId) {
+//                                Long debtId,
+                                Long invoiceId,
+                                Double amountLeft,
+                                Date date) {
 }

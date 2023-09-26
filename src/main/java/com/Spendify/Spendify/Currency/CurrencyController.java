@@ -1,9 +1,7 @@
 package com.Spendify.Spendify.Currency;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,4 +19,9 @@ public class CurrencyController {
     public List<CurrencyDTO> getCurrencies() {
         return currencyService.getAllCurrencies();
     }
+    @GetMapping("/{currencyId}")
+    public CurrencyDTO getCurrencies(@PathVariable("currencyId") Long currencyId) {
+        return currencyService.getCurrency(currencyId);
+    }
+
 }

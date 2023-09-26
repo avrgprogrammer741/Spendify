@@ -2,13 +2,9 @@ package com.Spendify.Spendify.Invoice;
 
 import com.Spendify.Spendify.Currency.Currency;
 import com.Spendify.Spendify.Expense.Expense;
-import com.Spendify.Spendify.Expense.Expense;
 import com.Spendify.Spendify.User.User;
-import com.Spendify.Spendify.User.UserRepository;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -82,8 +78,6 @@ public class Invoice {
         this.sellingPrice = sellingPrice;
         this.currency = currency;
     }
-
-
     @Override
     public String toString() {
         return "Invoice{" +
