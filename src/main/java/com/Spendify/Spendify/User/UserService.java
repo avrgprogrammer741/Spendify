@@ -42,7 +42,12 @@ public class UserService {
         if (updateRequest.email() != null) user
                 .setEmail(updateRequest.email());
 
-        // Zapisz zaktualizowanego użytkownika do bazy danych
+        if (updateRequest.password() != null) user
+                .setEmail(updateRequest.password());
+
+        if (updateRequest.image() != null) user
+                .setEmail(updateRequest.image());
+
         userRepository.save(user);
     }
 }

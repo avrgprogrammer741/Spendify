@@ -2,6 +2,8 @@ package com.Spendify.Spendify.User;
 
 public record UserUpdateRequest(
         String surname,
-        String email
+        String email,
+        String password,
+        String image
 ) {
 }
