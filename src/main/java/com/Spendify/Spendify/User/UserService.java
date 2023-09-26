@@ -1,5 +1,6 @@
 package com.Spendify.Spendify.User;
 
+import com.Spendify.Spendify.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,9 @@ public class UserService {
     public UserDTO getUser(Long userId) {
         return userRepository.findById(userId)
                 .map(userDTOMapper)
-                .orElseThrow(() -> new IllegalStateException("User not found with ID:" + userId));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "user with id [%s] not found".formatted(userId)
+                ));
     }
 
     public void deleteUser(Long userId) {
