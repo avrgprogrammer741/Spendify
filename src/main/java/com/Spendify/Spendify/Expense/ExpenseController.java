@@ -25,7 +25,7 @@ public class ExpenseController {
         return expenseService.getExpense(expenseId);
     }
 
-    @PutMapping("/{expenseId}")
+    @PatchMapping("/{expenseId}")
     public void updateExpense(@RequestBody ExpenseUpdateRequest expenseUpdateRequest,
                                @PathVariable("expenseId") Long expenseId) {
         expenseService.updateExpense(expenseUpdateRequest, expenseId);
