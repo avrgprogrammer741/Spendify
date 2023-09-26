@@ -2,9 +2,6 @@ package com.Spendify.Spendify.Invoice;
 
 import java.util.List;
 
-import com.Spendify.Spendify.Debt.DebtAddRequest;
-import com.Spendify.Spendify.Debt.DebtDTO;
-import com.Spendify.Spendify.Debt.DebtUpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
