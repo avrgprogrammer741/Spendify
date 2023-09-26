@@ -1,4 +1,6 @@
 package com.Spendify.Spendify.Debt;
+import com.Spendify.Spendify.Expense.ExpenseAddRequest;
+import com.Spendify.Spendify.Expense.ExpenseUpdateRequest;
 import com.Spendify.Spendify.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,19 +21,23 @@ public class DebtController {
     public List<DebtDTO> getDebts() {
         return debtService.getAllDebts();
     }
-//    @GetMapping("{userId}")
-//    public Optional<Debt> getUserDebt(@PathVariable Long userId)
-//    {
-//        return debtService.getUserDebt(userId);
-//    }
-
-//    @DeleteMapping
-//    public void deleteUserDebt(User user) throws Exception {
-//        debtService.deleteDebt(user);
-//    }
-    @PutMapping
-    public void setUserDebt(Debt debt)
+    @GetMapping("{debtId}")
+    public DebtDTO getDebt(@PathVariable ("debtId") Long debtId)
     {
-        debtService.setDebt(debt);
+        return debtService.getUserDebt(debtId);
+    }
+    @DeleteMapping("/{debtId}")
+    public void deleteDebt(@PathVariable("debtId") Long debtId)
+    {
+        debtService.deleteDebt(debtId);
+    }
+    @PostMapping
+    public void addDebt(@RequestBody DebtAddRequest addRequest) {
+        debtService.addDebt(addRequest);
+    }
+    @PatchMapping("/{debtId}")
+    public void updateDebt(@RequestBody DebtUpdateRequest debtUpdateRequest,
+                              @PathVariable("debtId") Long debtId) {
+        debtService.updateDebt(debtUpdateRequest, debtId);
     }
 }

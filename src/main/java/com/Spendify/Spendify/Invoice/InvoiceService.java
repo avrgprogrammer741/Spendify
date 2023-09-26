@@ -1,22 +1,29 @@
 package com.Spendify.Spendify.Invoice;
 
+import com.Spendify.Spendify.Currency.Currency;
+import com.Spendify.Spendify.Currency.CurrencyRepository;
+import com.Spendify.Spendify.User.User;
+import com.Spendify.Spendify.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class InvoiceService {
     private final InvoiceRepository invoiceRepository;
     private final InvoiceDTOMapper invoiceDTOMapper;
+    private final CurrencyRepository currencyRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public InvoiceService(InvoiceRepository invoiceRepository, InvoiceDTOMapper invoiceDTOMapper)
+    public InvoiceService(InvoiceRepository invoiceRepository, InvoiceDTOMapper invoiceDTOMapper, CurrencyRepository currencyRepository, UserRepository userRepository)
     {
         this.invoiceRepository=invoiceRepository;
         this.invoiceDTOMapper = invoiceDTOMapper;
+        this.currencyRepository = currencyRepository;
+        this.userRepository = userRepository;
     }
     public List<InvoiceDTO> getAllInvoices(){
         return invoiceRepository.findAll().stream()
@@ -25,27 +32,29 @@ public class InvoiceService {
     }
 
 
-    public void deleteInvoice(Long invoiceId) throws Exception {
-        Optional<Invoice> invoice = invoiceRepository.findById(invoiceId);
-        if (invoice.isPresent()) {
-            Invoice foundInvoice = invoice.get();
-            invoiceRepository.delete(foundInvoice);
-        } else {
-            throw new Exception("Error");
-        }
+    public InvoiceDTO getInvoice(Long invoiceId) {
+        return invoiceRepository
+                .findById(invoiceId)
+                .map(invoiceDTOMapper)
+                .orElseThrow(() -> new IllegalStateException("Invoice not found with ID: " + invoiceId));
     }
 
-    public void addInvoice(Invoice invoice) {
+    public void deleteInvoice(Long invoiceId) {
+        Invoice invoice=invoiceRepository.getReferenceById(invoiceId);
+        invoiceRepository.delete(invoice);
+    }
+
+    public void addInvoice(InvoiceAddRequest addRequest) {
+        Currency currency=currencyRepository.findById(addRequest.currencyId()).orElseThrow(() -> new IllegalArgumentException(" Currency not found with ID: " +addRequest.currencyId()));
+        User user=userRepository.findById(addRequest.userId()).orElseThrow(() -> new IllegalArgumentException(" User not found with ID: " +addRequest.userId()));
+        Invoice invoice=new Invoice();
+        invoice.setDate(addRequest.date());
+        invoice.setCurrency(currency);
+        invoice.setPrice(addRequest.price());
+        invoice.setBuyingPrice(addRequest.buyingPrice());
+        invoice.setUser(user);
         invoiceRepository.save(invoice);
-    }
 
-//    public Optional<Invoice> getUserInvoice(Long userId) throws Exception {
-//        Optional<Invoice> invoice = invoiceRepository.findByUser(userId);
-//        if (invoice.isPresent()) {
-//            Invoice foundInvoice = invoice.get();
-//            return Optional.of(foundInvoice);
-//        } else {
-//            throw new Exception("Error");
-//        }
-//    }
+
+    }
 }

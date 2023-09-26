@@ -1,5 +1,8 @@
 package com.Spendify.Spendify.Friendship;
 
+import com.Spendify.Spendify.Debt.DebtAddRequest;
+import com.Spendify.Spendify.Debt.DebtDTO;
+import com.Spendify.Spendify.Debt.DebtUpdateRequest;
 import com.Spendify.Spendify.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,18 +25,19 @@ public class FriendshipController {
         return friendshipService.getAllFriendships();
     }
 
-//    @GetMapping("{userId}")
-//    public Optional<Friendship> getFriendship(@PathVariable Long userId) throws Exception {
-//        return friendshipService.getUserFriendship(userId);
-//    }
-    @PutMapping
-    public void setFriendship(Date date, User user, User friend)
+    @GetMapping("{friendshipId}")
+    public FriendshipDTO getFriendship(@PathVariable ("friendshipId") Long friendshipId)
     {
-        friendshipService.setUserFriendship(date, user, friend);
+        return friendshipService.getFriendship(friendshipId);
     }
-    @DeleteMapping
-    public void deleteFriendship(User user, User friend) throws Exception {
-        friendshipService.deleteFriendship(user,friend);
+    @DeleteMapping("/{friendshipId}")
+    public void deleteFriendship(@PathVariable("friendshipId") Long friendshipId)
+    {
+        friendshipService.deleteFriendship(friendshipId);
+    }
+    @PostMapping
+    public void addFriendship(@RequestBody FriendshipAddRequest addRequest) {
+        friendshipService.addFriendship(addRequest);
     }
 }
 
