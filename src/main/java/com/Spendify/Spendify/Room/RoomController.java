@@ -1,13 +1,11 @@
 package com.Spendify.Spendify.Room;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping(path = "api/v1/room")
@@ -35,13 +33,8 @@ public class RoomController {
     }
 
     @DeleteMapping("/{roomId}")
-    public ResponseEntity<Void> deleteRoom(@PathVariable("roomId") Long roomId) {
-        try {
-            roomService.deleteRoom(roomId);
-            return ResponseEntity.noContent().build();
-        } catch (EntityNotFoundException ex) {
-            return ResponseEntity.notFound().build();
-        }
+    public void deleteRoom(@PathVariable("roomId") Long roomId) {
+        roomService.deleteRoom(roomId);
     }
 
     @PostMapping
@@ -50,14 +43,9 @@ public class RoomController {
     }
 
     @DeleteMapping("/{roomId}/users/{userId}")
-    public ResponseEntity<Void> removeUserFromRoom(
+    public void removeUserFromRoom(
             @PathVariable("roomId") Long roomId,
             @PathVariable("userId") Long userId) {
-        try {
-            roomService.removeUser(roomId, userId);
-            return ResponseEntity.noContent().build();
-        } catch (IllegalArgumentException | NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        }
+        roomService.removeUser(roomId, userId);
     }
 }

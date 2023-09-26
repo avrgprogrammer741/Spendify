@@ -1,13 +1,10 @@
 package com.Spendify.Spendify.Room;
 
 import com.Spendify.Spendify.User.User;
-import org.springframework.http.HttpStatus;
+import com.Spendify.Spendify.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,11 +28,16 @@ public class RoomService {
     public RoomDTO getRoom(Long roomId) {
         return roomRepository.findById(roomId)
                 .map(roomDTOMapper)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Room not found with ID: " + roomId));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "room with id [%s] not found".formatted(roomId)
+                ));
     }
 
     public void deleteRoom(Long roomId) {
+        roomRepository.findById(roomId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "room with id [%s] not found".formatted(roomId)
+                ));
         roomRepository.deleteById(roomId);
     }
 
@@ -46,25 +48,20 @@ public class RoomService {
     }
 
     public void removeUser(Long roomId, Long userId) {
-        Optional<Room> optionalRoom = roomRepository.findById(roomId);
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> new ResourceNotFoundException(
+                "room with id [%s] not found".formatted(roomId)
+        ));
+        List<User> userList = room.getUserList();
+        User userToRemove = userList
+                .stream()
+                .filter(user -> user.getId().equals(userId))
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "user with id [%s] not found".formatted(userId)
+                ));
 
-        if (optionalRoom.isPresent()) {
-            Room room = optionalRoom.get();
-            List<User> userList = room.getUserList();
-            Optional<User> optionalUserToRemove = userList.stream()
-                    .filter(user -> user.getId().equals(userId))
-                    .findFirst();
-
-            if (optionalUserToRemove.isPresent()) {
-                User userToRemove = optionalUserToRemove.get();
-                userList.remove(userToRemove);
-                roomRepository.save(room);
-            } else {
-                throw new IllegalArgumentException("User does not belong to the room.");
-            }
-        } else {
-            throw new NoSuchElementException("Room with that id does not exists");
-        }
+        userList.remove(userToRemove);
+        roomRepository.save(room);
     }
 }
 

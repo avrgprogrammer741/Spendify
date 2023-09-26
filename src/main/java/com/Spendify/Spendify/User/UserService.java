@@ -33,11 +33,16 @@ public class UserService {
     }
 
     public void deleteUser(Long userId) {
+        userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(
+                "user with id [%s] not found".formatted(userId)
+        ));
         userRepository.deleteById(userId);
     }
 
     public void updateUser(Long userId, UserUpdateRequest updateRequest) {
-        User user = userRepository.getReferenceById(userId);
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(
+                "user with id [%s] not found".formatted(userId)
+        ));
 
         if (updateRequest.surname() != null) user
                 .setSurname(updateRequest.surname());
