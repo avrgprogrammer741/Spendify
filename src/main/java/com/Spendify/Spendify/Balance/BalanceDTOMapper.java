@@ -12,7 +12,7 @@ public class BalanceDTOMapper implements Function<Balance,BalanceDTO> {
         return new BalanceDTO(
                 balance.getId(),
                 balance.getCurrency().getId(),
-                balance.getIdUser(),
+                balance.getWallet().getId(),
                 balance.getAmount()
         );
     }

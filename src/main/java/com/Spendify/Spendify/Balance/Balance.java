@@ -1,6 +1,7 @@
 package com.Spendify.Spendify.Balance;
 
 import com.Spendify.Spendify.Currency.Currency;
+import com.Spendify.Spendify.Wallet.Wallet;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,21 +25,21 @@ public class Balance {
             nullable = false
     )
     private Long id;
-    private Long idUser;
-
 
     @ManyToOne
     @JoinColumn(name = "currency_id")
     private Currency currency;
     @Column(name = "amount",
-            length = 50,
+            precision = 2,
             nullable = false
     )
-    private int amount;
-
-    public Balance(Long idUser, Currency currency, int amount) {
-        this.idUser = idUser;
+    private double amount;
+    @ManyToOne
+    @JoinColumn(name = "wallet_id")
+    private Wallet wallet;
+    public Balance(Currency currency, Wallet wallet, double amount) {
         this.currency = currency;
+        this.wallet = wallet;
         this.amount = amount;
     }
 }
