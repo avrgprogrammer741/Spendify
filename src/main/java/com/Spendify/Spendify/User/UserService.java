@@ -1,5 +1,6 @@
 package com.Spendify.Spendify.User;
 
+import com.Spendify.Spendify.exception.DuplicateResourceException;
 import com.Spendify.Spendify.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService {
+
     private final UserRepository userRepository;
     private final UserDTOMapper userDTOMapper;
 
@@ -58,4 +60,26 @@ public class UserService {
 
         userRepository.save(user);
     }
+
+    public void addUser(UserAddRequest addRequest) {
+        if (existsUserWithEmail(addRequest.email())) {
+            throw new DuplicateResourceException(
+                    "email already taken"
+            );
+        }
+        User user = new User(
+                addRequest.name(),
+                addRequest.surname(),
+                addRequest.password(),
+                addRequest.email(),
+                addRequest.image(),
+                addRequest.isActive()
+        );
+        userRepository.save(user);
+    }
+
+    public boolean existsUserWithEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
 }

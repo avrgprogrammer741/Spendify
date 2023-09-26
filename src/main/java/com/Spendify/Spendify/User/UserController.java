@@ -36,10 +36,10 @@ public class UserController {
                            @RequestBody UserUpdateRequest userUpdateRequest){
         userService.updateUser(userId, userUpdateRequest);
     }
-//    @GetMapping()
-//    public List<UserDTO> getUsers(){
-//        return userService.getAllUsers();
-//    }
+    @PostMapping
+    public void addUser(@RequestBody UserAddRequest addRequest){
+        userService.addUser(addRequest);
+    }
 //    @GetMapping()
 //    public List<UserDTO> getUsers(){
 //        return userService.getAllUsers();
