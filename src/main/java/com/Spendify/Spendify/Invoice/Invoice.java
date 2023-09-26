@@ -12,8 +12,9 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
-@Entity
 @Data
+@Entity
+@Table(name = "invoices")
 public class Invoice {
     @Id
     @SequenceGenerator(name = "invoice_sequence",

@@ -13,6 +13,7 @@ import java.util.Set;
 @Data
 @Entity
 @NoArgsConstructor
+@Table(name = "debts")
 public class Debt {
     @Id
     @SequenceGenerator(name = "debt_sequence",

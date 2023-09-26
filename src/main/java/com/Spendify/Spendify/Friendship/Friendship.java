@@ -9,6 +9,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "friendships")
 public class Friendship {
     @Id
     @SequenceGenerator(name = "friendship_sequence",
@@ -19,7 +20,7 @@ public class Friendship {
             strategy = GenerationType.SEQUENCE,
             generator = "friendship_sequence"
     )
-    @Column(name = "friendship_id",
+    @Column(name = "id",
             length = 50,
             nullable = false
     )

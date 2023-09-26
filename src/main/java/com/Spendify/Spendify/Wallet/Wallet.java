@@ -1,13 +1,18 @@
 package com.Spendify.Spendify.Wallet;
 
+import com.Spendify.Spendify.Balance.Balance;
+import com.Spendify.Spendify.Invoice.Invoice;
 import com.Spendify.Spendify.User.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @Entity
+@Table(name = "wallets")
 public class Wallet {
     @Id
     private Long Id;
@@ -20,7 +25,10 @@ public class Wallet {
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
-
+    @OneToMany(mappedBy = "wallet",
+            cascade = CascadeType.ALL
+    )
+    private List<Balance> balances;
     public Wallet(Double quantity, User user) {
         this.quantity_pln = quantity;
         this.user = user;
