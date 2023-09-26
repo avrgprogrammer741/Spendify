@@ -7,6 +7,7 @@ import com.Spendify.Spendify.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,10 +49,10 @@ public class InvoiceService {
         Currency currency=currencyRepository.findById(addRequest.currencyId()).orElseThrow(() -> new IllegalArgumentException(" Currency not found with ID: " +addRequest.currencyId()));
         User user=userRepository.findById(addRequest.userId()).orElseThrow(() -> new IllegalArgumentException(" User not found with ID: " +addRequest.userId()));
         Invoice invoice=new Invoice();
-        invoice.setDate(addRequest.date());
+        invoice.setDate(new Date());
         invoice.setCurrency(currency);
         invoice.setPrice(addRequest.price());
-        invoice.setBuyingPrice(addRequest.buyingPrice());
+        invoice.setExchangeRate(addRequest.exchangeRate());
         invoice.setUser(user);
         invoiceRepository.save(invoice);
 

@@ -27,13 +27,15 @@ public class ExpenseController {
 
     @PatchMapping("/{expenseId}")
     public void updateExpense(@RequestBody ExpenseUpdateRequest expenseUpdateRequest,
-                               @PathVariable("expenseId") Long expenseId) {
+                              @PathVariable("expenseId") Long expenseId) {
         expenseService.updateExpense(expenseUpdateRequest, expenseId);
     }
+
     @DeleteMapping("/{expenseId}")
     public void updateExpense(@PathVariable("expenseId") Long expenseId) {
         expenseService.deleteExpense(expenseId);
     }
+
     @PostMapping
     public void addExpense(@RequestBody ExpenseAddRequest addRequest) {
         expenseService.addExpense(addRequest);

@@ -10,8 +10,6 @@ public class ExpenseDTOMapper implements Function<Expense, ExpenseDTO> {
         return new ExpenseDTO(
                 expense.getId(),
                 expense.getQuantity(),
-//                expense.getDebt().getId(),
-                expense.getInvoice().getInvoiceId(),
                 expense.getDate(),
                 expense.getAmountLeft()
         );

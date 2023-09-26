@@ -3,10 +3,10 @@ package com.Spendify.Spendify.Expense;
 //import com.Spendify.Spendify.Debt.Debt;
 //import com.Spendify.Spendify.Debt.DebtRepository;
 
-import com.Spendify.Spendify.Invoice.Invoice;
 import com.Spendify.Spendify.Invoice.InvoiceRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,19 +60,11 @@ public class ExpenseService {
 
     public void addExpense(ExpenseAddRequest addRequest) {
         System.out.println("tet");
-//        Debt debt = debtRepository.findById(addRequest.debtId())
-//                .orElseThrow(() -> new IllegalArgumentException("Debt not found with ID: " + addRequest.debtId()));
-
-        Invoice invoice = invoiceRepository.findById(addRequest.invoiceId())
-                .orElseThrow(() -> new IllegalArgumentException("Invoice not found with ID: " + addRequest.invoiceId()));
 
         Expense expense = new Expense();
-//        expense.setDebt(debt);
-        expense.setInvoice(invoice);
         expense.setQuantity(addRequest.quantity());
-        expense.setDate(addRequest.date());
+        expense.setDate(new Date());
         expense.setAmountLeft(addRequest.amountLeft());
         expenseRepository.save(expense);
     }
-
 }

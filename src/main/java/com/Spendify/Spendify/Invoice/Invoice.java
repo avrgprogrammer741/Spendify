@@ -1,16 +1,13 @@
 package com.Spendify.Spendify.Invoice;
 
 import com.Spendify.Spendify.Currency.Currency;
-import com.Spendify.Spendify.Expense.Expense;
 import com.Spendify.Spendify.User.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
-@Table(name = "invoices")
 public class Invoice {
     @Id
     @SequenceGenerator(name = "invoice_sequence",
@@ -37,16 +34,11 @@ public class Invoice {
     )
     private Double price;
 
-    @Column(name = "buying_price",
+    @Column(name = "exchange_rate",
             length = 50,
             nullable = false
     )
-    private Double buyingPrice;
-    @Column(name = "selling_price",
-            length = 50,
-            nullable = false
-    )
-    private Double sellingPrice;
+    private Double exchangeRate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -56,26 +48,22 @@ public class Invoice {
     @JoinColumn(name = "currency_id")
     private Currency currency;
 
-    @OneToMany(mappedBy = "invoice")
-    private List<Expense> expense;
 
     public Invoice() {
     }
 
-    public Invoice(Date date, Double price, Currency currency, User user, Double buyingPrice, Double sellingPrice) {
+    public Invoice(Date date, Double price, Currency currency, User user, Double exchangeRate) {
         this.date = date;
         this.price = price;
-        this.buyingPrice = buyingPrice;
         this.user = user;
-        this.sellingPrice = sellingPrice;
+        this.exchangeRate = exchangeRate;
         this.currency = currency;
     }
 
-    public Invoice(Date date, Double price, Currency currency, Double buyingPrice, Double sellingPrice) {
+    public Invoice(Date date, Double price, Currency currency, Double exchangeRate) {
         this.date = date;
         this.price = price;
-        this.buyingPrice = buyingPrice;
-        this.sellingPrice = sellingPrice;
+        this.exchangeRate = exchangeRate;
         this.currency = currency;
     }
     @Override
@@ -84,8 +72,7 @@ public class Invoice {
                 "id=" + invoiceId +
                 ", date=" + date +
                 ", price=" + price +
-                ", buyingprice=" + buyingPrice +
-                ", sellingprice=" + sellingPrice +
+                ", sellingprice=" + exchangeRate +
                 '}';
     }
 }

@@ -12,7 +12,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "wallets")
 public class Wallet {
     @Id
     private Long Id;

@@ -9,7 +9,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "friendships")
 public class Friendship {
     @Id
     @SequenceGenerator(name = "friendship_sequence",

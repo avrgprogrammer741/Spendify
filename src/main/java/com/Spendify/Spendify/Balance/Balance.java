@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "balances")
 public class Balance {
     @Id
     @SequenceGenerator(name = "balance_sequence",

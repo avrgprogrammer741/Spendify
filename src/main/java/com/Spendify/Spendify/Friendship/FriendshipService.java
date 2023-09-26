@@ -4,6 +4,7 @@ import com.Spendify.Spendify.User.User;
 import com.Spendify.Spendify.User.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,7 @@ public class FriendshipService {
         User user = userRepository.findById(addRequest.userId()) .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + addRequest.userId()));
         User friend=userRepository.findById(addRequest.friendId()) .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + addRequest.friendId()));
         Friendship friendship=new Friendship();
-        friendship.setFriendshipDate(addRequest.friendshipDate());
+        friendship.setFriendshipDate(new Date());
         friendship.setUser(user);
         friendship.setFriend(friend);
         friendshipRepository.save(friendship);

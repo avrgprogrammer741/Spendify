@@ -9,7 +9,6 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "rooms")
 public class Room {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "room_sequence")
     @SequenceGenerator(name = "room_sequence", sequenceName = "room_sequence", allocationSize = 1, initialValue = 4)

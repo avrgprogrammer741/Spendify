@@ -4,7 +4,6 @@ import com.Spendify.Spendify.Currency.Currency;
 import com.Spendify.Spendify.Currency.CurrencyDTO;
 import com.Spendify.Spendify.Currency.CurrencyDTOMapper;
 import com.Spendify.Spendify.Currency.CurrencyRepository;
-import com.Spendify.Spendify.Debt.Debt;
 import com.Spendify.Spendify.Expense.Expense;
 import com.Spendify.Spendify.Expense.ExpenseAddRequest;
 import com.Spendify.Spendify.Expense.ExpenseDTO;
@@ -54,7 +53,7 @@ public class BalanceService {
                 .orElseThrow(() -> new IllegalArgumentException("Currency not found with ID: " + addRequest.currencyId()));
 
         Wallet wallet = walletRepository.findById(addRequest.walletId())
-                .orElseThrow(() -> new IllegalArgumentException("Invoice not found with ID: " + addRequest.walletId()));
+                .orElseThrow(() -> new IllegalArgumentException("Wallet not found with ID: " + addRequest.walletId()));
 
         Balance balance = new Balance();
         balance.setCurrency(currency);
