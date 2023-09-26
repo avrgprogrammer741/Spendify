@@ -5,6 +5,6 @@ import java.util.Date;
 public record ExpenseAddRequest(Double quantity,
 //                                Long debtId,
                                 Long invoiceId,
-                                Double left,
+                                Double amountLeft,
                                 Date date) {
 }

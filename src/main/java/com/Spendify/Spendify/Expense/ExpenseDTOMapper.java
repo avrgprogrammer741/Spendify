@@ -13,7 +13,7 @@ public class ExpenseDTOMapper implements Function<Expense, ExpenseDTO> {
 //                expense.getDebt().getId(),
                 expense.getInvoice().getInvoiceId(),
                 expense.getDate(),
-                expense.getLeft()
+                expense.getAmountLeft()
         );
     }
 }

@@ -2,6 +2,7 @@ package com.Spendify.Spendify.Wallet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,4 +17,6 @@ public class WalletController {
 
     @GetMapping()
     public List<WalletDTO> getWallets() {return walletService.getAllWallets();}
+    @GetMapping("{walletId}")
+    public WalletDTO getWallet(@PathVariable("walletId") Long walletId ) {return walletService.getWallet(walletId);}
 }

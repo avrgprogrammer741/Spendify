@@ -33,7 +33,7 @@ public class ExpenseService {
     public void updateExpense (ExpenseUpdateRequest expenseUpdateRequest, Long expenseId) {
         Expense expense = expenseRepository.getReferenceById(expenseId);
         expense.setQuantity(expenseUpdateRequest.quantity());
-        expense.setLeft(expenseUpdateRequest.left());
+        expense.setAmountLeft(expenseUpdateRequest.left());
         expenseRepository.save(expense);
     }
     public void deleteExpense (Long expenseId) {
@@ -41,6 +41,7 @@ public class ExpenseService {
         expenseRepository.delete(expense);
     }
     public void addExpense(ExpenseAddRequest addRequest) {
+        System.out.println("tet");
 //        Debt debt = debtRepository.findById(addRequest.debtId())
 //                .orElseThrow(() -> new IllegalArgumentException("Debt not found with ID: " + addRequest.debtId()));
 
@@ -52,7 +53,7 @@ public class ExpenseService {
         expense.setInvoice(invoice);
         expense.setQuantity(addRequest.quantity());
         expense.setDate(addRequest.date());
-        expense.setLeft(addRequest.left());
+        expense.setAmountLeft(addRequest.amountLeft());
         expenseRepository.save(expense);
     }
 
