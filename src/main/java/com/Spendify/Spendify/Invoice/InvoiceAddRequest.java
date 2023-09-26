@@ -8,7 +8,4 @@ public record InvoiceAddRequest(
                 Double price,
                 Double buyingPrice,
                 Double sellingPrice,
-                Long currencyId
-
-) {
-}
+                Long currencyId) { }

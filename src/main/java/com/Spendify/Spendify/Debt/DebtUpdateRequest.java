@@ -1,4 +1,4 @@
-package com.Spendify.Spendify.Debt;
-
-public record DebtUpdateRequest() {
-}
+//package com.Spendify.Spendify.Debt;
+//
+//public record DebtUpdateRequest() {
+//}

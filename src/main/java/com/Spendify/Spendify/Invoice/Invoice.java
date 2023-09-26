@@ -77,8 +77,6 @@ public class Invoice {
         this.sellingPrice = sellingPrice;
         this.currency = currency;
     }
-
-
     @Override
     public String toString() {
         return "Invoice{" +
