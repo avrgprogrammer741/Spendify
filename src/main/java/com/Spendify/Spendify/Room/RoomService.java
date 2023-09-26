@@ -60,10 +60,10 @@ public class RoomService {
                 userList.remove(userToRemove);
                 roomRepository.save(room);
             } else {
-                throw new IllegalArgumentException("Użytkownik o podanym ID nie należy do pokoju.");
+                throw new IllegalArgumentException("User does not belong to the room.");
             }
         } else {
-            throw new NoSuchElementException("Pokój o podanym ID nie istnieje.");
+            throw new NoSuchElementException("Room with that id does not exists");
         }
     }
 }
