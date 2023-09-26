@@ -4,6 +4,7 @@ import com.Spendify.Spendify.Currency.Currency;
 //import com.Spendify.Spendify.Debt.Debt;
 import com.Spendify.Spendify.Debt.Debt;
 import com.Spendify.Spendify.Invoice.Invoice;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.*;
@@ -29,6 +30,7 @@ public class Expense {
             nullable = false,
             precision = 2
     )
+    @JsonProperty("quantity")
     private Double quantity;
 
     @ManyToOne

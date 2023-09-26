@@ -1,6 +1,6 @@
 package com.Spendify.Spendify.Expense;
 
-public record ExpenseUpdateOrAddRequest(
+public record ExpenseUpdateRequest(
         Double quantity
 ) {
 }
