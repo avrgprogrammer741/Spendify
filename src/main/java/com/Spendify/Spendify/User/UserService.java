@@ -1,6 +1,5 @@
 package com.Spendify.Spendify.User;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,15 +34,14 @@ public class UserService {
     }
 
     public void updateUser(Long userId, UserUpdateRequest updateRequest) {
-        System.out.println("test");
         User user = userRepository.getReferenceById(userId);
-        System.out.println("user");
-        try {
-            // Skopiuj niepuste właściwości z obiektu UserUpdateRequest do obiektu User
-            BeanUtils.copyProperties(user, updateRequest);
-        } catch (Exception e) {
-            throw new RuntimeException("Error copying properties", e);
-        }
+
+        if (updateRequest.surname() != null) user
+                .setSurname(updateRequest.surname());
+
+        if (updateRequest.email() != null) user
+                .setEmail(updateRequest.email());
+
         // Zapisz zaktualizowanego użytkownika do bazy danych
         userRepository.save(user);
     }
