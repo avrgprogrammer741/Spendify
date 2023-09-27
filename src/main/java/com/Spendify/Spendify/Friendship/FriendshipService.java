@@ -2,10 +2,14 @@ package com.Spendify.Spendify.Friendship;
 
 import com.Spendify.Spendify.User.User;
 import com.Spendify.Spendify.User.UserRepository;
+import com.Spendify.Spendify.exception.DuplicateFriendshipException;
+import com.Spendify.Spendify.exception.FriendshipYourselfException;
+import com.Spendify.Spendify.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,7 +23,6 @@ public class FriendshipService {
                 .stream()
                 .map(friendshipDTOMapper)
                 .collect(Collectors.toList());
-
     }
     public FriendshipService(FriendshipRepository friendshipRepository, FriendshipDTOMapper friendshipDTOMapper, UserRepository userRepository) {
         this.friendshipRepository = friendshipRepository;
@@ -31,12 +34,22 @@ public class FriendshipService {
         return friendshipRepository
                 .findById(friendshipId)
                 .map(friendshipDTOMapper)
-                .orElseThrow(() -> new IllegalStateException("Friendship not found with ID: " + friendshipId));
+                .orElseThrow(() -> new ResourceNotFoundException("Friendship with ID [%s] not found".formatted(friendshipId)));
     }
 
     public void addFriendship(FriendshipAddRequest addRequest) {
-        User user = userRepository.findById(addRequest.userId()) .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + addRequest.userId()));
-        User friend=userRepository.findById(addRequest.friendId()) .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + addRequest.friendId()));
+        User user = userRepository.findById(addRequest.userId()) .orElseThrow(() -> new ResourceNotFoundException("User with ID [%s] not found".formatted(addRequest.userId())));
+        User friend=userRepository.findById(addRequest.friendId()) .orElseThrow(() -> new ResourceNotFoundException("User with ID [%s] not found".formatted(addRequest.friendId())));
+        if (Objects.equals(user.getId(), friend.getId()))
+        {
+            throw new FriendshipYourselfException("Friendship with yourself is impossible");
+        }
+        boolean friendshipExists = friendshipRepository.existsByUserAndFriend(user, friend) ||
+                friendshipRepository.existsByUserAndFriend(friend, user);
+
+        if (friendshipExists) {
+            throw new DuplicateFriendshipException("Friendship already exists");
+        }
         Friendship friendship=new Friendship();
         friendship.setFriendshipDate(new Date());
         friendship.setUser(user);
@@ -44,7 +57,7 @@ public class FriendshipService {
         friendshipRepository.save(friendship);
     }
     public void deleteFriendship(Long friendshipId) {
-        Friendship friendship = friendshipRepository.getReferenceById(friendshipId);
+        Friendship friendship = friendshipRepository.findById(friendshipId).orElseThrow(() -> new ResourceNotFoundException("Friendship with ID [%s] not found".formatted(friendshipId)));
         friendshipRepository.delete(friendship);
     }
 }

@@ -4,6 +4,7 @@ import com.Spendify.Spendify.Currency.Currency;
 import com.Spendify.Spendify.Currency.CurrencyRepository;
 import com.Spendify.Spendify.User.User;
 import com.Spendify.Spendify.User.UserRepository;
+import com.Spendify.Spendify.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,17 +38,17 @@ public class InvoiceService {
         return invoiceRepository
                 .findById(invoiceId)
                 .map(invoiceDTOMapper)
-                .orElseThrow(() -> new IllegalStateException("Invoice not found with ID: " + invoiceId));
+                .orElseThrow(() -> new ResourceNotFoundException("Invoice with ID [%s] not found".formatted(invoiceId)));
     }
 
     public void deleteInvoice(Long invoiceId) {
-        Invoice invoice=invoiceRepository.getReferenceById(invoiceId);
+        Invoice invoice=invoiceRepository.findById(invoiceId).orElseThrow(() -> new ResourceNotFoundException("Invoice with ID [%s] not found".formatted(invoiceId)));
         invoiceRepository.delete(invoice);
     }
 
     public void addInvoice(InvoiceAddRequest addRequest) {
-        Currency currency=currencyRepository.findById(addRequest.currencyId()).orElseThrow(() -> new IllegalArgumentException(" Currency not found with ID: " +addRequest.currencyId()));
-        User user=userRepository.findById(addRequest.userId()).orElseThrow(() -> new IllegalArgumentException(" User not found with ID: " +addRequest.userId()));
+        Currency currency=currencyRepository.findById(addRequest.currencyId()).orElseThrow(() -> new ResourceNotFoundException(" Currency with ID [%s] not found".formatted(addRequest.currencyId())));
+        User user=userRepository.findById(addRequest.userId()).orElseThrow(() -> new ResourceNotFoundException(" User with ID [%s] not found".formatted(addRequest.userId())));
         Invoice invoice=new Invoice();
         invoice.setDate(new Date());
         invoice.setCurrency(currency);
