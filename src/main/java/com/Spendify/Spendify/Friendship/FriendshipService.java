@@ -3,6 +3,7 @@ package com.Spendify.Spendify.Friendship;
 import com.Spendify.Spendify.User.User;
 import com.Spendify.Spendify.User.UserRepository;
 import com.Spendify.Spendify.exception.DuplicateResourceException;
+import com.Spendify.Spendify.exception.FieldRequiredException;
 import com.Spendify.Spendify.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +38,17 @@ public class FriendshipService {
     }
 
     public void addFriendship(FriendshipAddRequest addRequest) {
+        if(addRequest.friendId()==null)
+        {
+            throw new FieldRequiredException("Missing data ID friend");
+        }
+        if (addRequest.userId()==null)
+        {
+            throw new FieldRequiredException("Missing data ID user");
+        }
         User user = userRepository.findById(addRequest.userId()) .orElseThrow(() -> new ResourceNotFoundException("User with ID [%s] not found".formatted(addRequest.userId())));
         User friend=userRepository.findById(addRequest.friendId()) .orElseThrow(() -> new ResourceNotFoundException("User with ID [%s] not found".formatted(addRequest.friendId())));
+
         if (Objects.equals(user.getId(), friend.getId()))
         {
             throw new DuplicateResourceException("Friendship with yourself is impossible");
