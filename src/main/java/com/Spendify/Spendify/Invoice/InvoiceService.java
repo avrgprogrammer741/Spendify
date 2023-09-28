@@ -4,6 +4,7 @@ import com.Spendify.Spendify.Currency.Currency;
 import com.Spendify.Spendify.Currency.CurrencyRepository;
 import com.Spendify.Spendify.User.User;
 import com.Spendify.Spendify.User.UserRepository;
+import com.Spendify.Spendify.exception.FieldRequiredException;
 import com.Spendify.Spendify.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,16 +48,23 @@ public class InvoiceService {
     }
 
     public void addInvoice(InvoiceAddRequest addRequest) {
+
+        if (addRequest.currencyId()==null)throw new FieldRequiredException("Missing ID currency");
+        if (addRequest.userId()==null) throw new FieldRequiredException("Missing ID user");
+
         Currency currency=currencyRepository.findById(addRequest.currencyId()).orElseThrow(() -> new ResourceNotFoundException(" Currency with ID [%s] not found".formatted(addRequest.currencyId())));
         User user=userRepository.findById(addRequest.userId()).orElseThrow(() -> new ResourceNotFoundException(" User with ID [%s] not found".formatted(addRequest.userId())));
         Invoice invoice=new Invoice();
         invoice.setDate(new Date());
         invoice.setCurrency(currency);
-        invoice.setPrice(addRequest.price());
-        invoice.setExchangeRate(addRequest.exchangeRate());
+        invoice.setPrice(checkIfNull("price",addRequest.price()));
+        invoice.setExchangeRate(checkIfNull("exchangeRate",addRequest.exchangeRate()));
         invoice.setUser(user);
         invoiceRepository.save(invoice);
-
-
+    }
+    public Double checkIfNull(String pattern, Double element)
+    {
+        if (element==null)throw new FieldRequiredException("Missing [%s], please fill".formatted(pattern));
+        return element;
     }
 }

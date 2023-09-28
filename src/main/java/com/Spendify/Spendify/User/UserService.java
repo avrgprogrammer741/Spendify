@@ -36,7 +36,8 @@ public class UserService {
     }
 
     public void deleteUser(Long userId) {
-        userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(
+        userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException(
                 "user with id [%s] not found".formatted(userId)
         ));
         userRepository.deleteById(userId);
@@ -54,10 +55,10 @@ public class UserService {
                 .setEmail(updateRequest.email());
 
         if (updateRequest.password() != null) user
-                .setEmail(updateRequest.password());
+                .setPassword(updateRequest.password());
 
         if (updateRequest.image() != null) user
-                .setEmail(updateRequest.image());
+                .setImage(updateRequest.image());
 
         userRepository.save(user);
     }
@@ -83,7 +84,7 @@ public class UserService {
         return userRepository.existsByEmail(email);
     }
 
-    public String existsResource(String elementName,String element ) {
+    public String existsResource(String elementName, String element) {
         if (element == null) throw new FieldRequiredException("please fill " + elementName + "field");
         return element;
     }
