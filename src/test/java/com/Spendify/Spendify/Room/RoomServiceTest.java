@@ -19,6 +19,7 @@ class RoomServiceTest {
     @BeforeEach
     void setUp() {
         autoCloseable = MockitoAnnotations.openMocks(this);
+        roomDTOMapper = new RoomDTOMapper();
         underTest = new RoomService(roomRepository, roomDTOMapper);
     }
 
