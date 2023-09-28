@@ -1,6 +1,7 @@
 package com.Spendify.Spendify.Invoice;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,19 +15,23 @@ public class InvoiceController {
         this.invoiceService=invoiceService;
     }
     @GetMapping
-    public List<Invoice> getInvoices()
+    public List<InvoiceDTO> getInvoices()
     {
-        return invoiceService.getInvoices();
+        return invoiceService.getAllInvoices();
     }
-//    @DeleteMapping(path = "{invoiceId}")
-//    public void deleteInvoice(@PathVariable("invoiceId")Long invoiceId)
-//    {
-//        invoiceService.deleteInvoice(invoiceId);
-//    }
-//    @PostMapping
-//    public void addNewInvoice(@RequestBody Invoice invoice)
-//    {
-//        invoiceService.addInvoice(invoice);
-//    }
 
+    @GetMapping("{invoiceId}")
+    public InvoiceDTO getInvoice(@PathVariable ("invoiceId") Long invoiceId)
+    {
+        return invoiceService.getInvoice(invoiceId);
+    }
+    @DeleteMapping("/{invoiceId}")
+    public void deleteDebt(@PathVariable("invoiceId") Long invoiceId)
+    {
+        invoiceService.deleteInvoice(invoiceId);
+    }
+    @PostMapping
+    public void addInvoice(@RequestBody InvoiceAddRequest addRequest) {
+        invoiceService.addInvoice(addRequest);
+    }
 }

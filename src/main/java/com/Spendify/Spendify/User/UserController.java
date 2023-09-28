@@ -1,12 +1,12 @@
 package com.Spendify.Spendify.User;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping(path = "api/v1/user/")
@@ -21,4 +21,27 @@ public class UserController {
     public List<UserDTO> getUsers(){
         return userService.getAllUsers();
     }
+    @GetMapping("{userId}")
+    public UserDTO getUser(@PathVariable("userId") Long userId) {
+        return userService.getUser(userId);
+
+    }
+
+    @DeleteMapping("{userId}")
+    public void deleteUser(@PathVariable("userId") Long userId){
+        userService.deleteUser(userId);
+    }
+    @PatchMapping("{userId}")
+    public void updateUser(@PathVariable("userId") Long userId,
+                           @RequestBody UserUpdateRequest userUpdateRequest){
+        userService.updateUser(userId, userUpdateRequest);
+    }
+    @PostMapping
+    public void addUser(@RequestBody UserAddRequest addRequest){
+        userService.addUser(addRequest);
+    }
+//    @GetMapping()
+//    public List<UserDTO> getUsers(){
+//        return userService.getAllUsers();
+//    }
 }
