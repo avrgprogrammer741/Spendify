@@ -1,6 +1,7 @@
 package com.Spendify.Spendify.User;
 
 import com.Spendify.Spendify.exception.DuplicateResourceException;
+import com.Spendify.Spendify.exception.FieldRequiredException;
 import com.Spendify.Spendify.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -68,11 +69,11 @@ public class UserService {
             );
         }
         User user = new User(
-                addRequest.name(),
-                addRequest.surname(),
-                addRequest.password(),
-                addRequest.email(),
-                addRequest.image(),
+                existsResource("name", addRequest.name()),
+                existsResource("surname", addRequest.surname()),
+                existsResource("password", addRequest.password()),
+                existsResource("email", addRequest.email()),
+                existsResource("image", addRequest.image()),
                 addRequest.isActive()
         );
         userRepository.save(user);
@@ -82,4 +83,8 @@ public class UserService {
         return userRepository.existsByEmail(email);
     }
 
+    public String existsResource(String elementName,String element ) {
+        if (element == null) throw new FieldRequiredException("please fill " + elementName + "field");
+        return element;
+    }
 }
