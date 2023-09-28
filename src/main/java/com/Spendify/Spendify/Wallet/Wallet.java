@@ -14,13 +14,16 @@ import java.util.List;
 @Entity
 public class Wallet {
     @Id
+    @SequenceGenerator(name = "balance_sequence",
+            sequenceName = "balance_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "balance_sequence"
+    )
     private Long Id;
 
-    @Column(name = "quantity_pln",
-            nullable = false,
-            precision = 2
-    )
-    private Double quantity_pln;
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id")
     private User user;
@@ -28,8 +31,7 @@ public class Wallet {
             cascade = CascadeType.ALL
     )
     private List<Balance> balances;
-    public Wallet(Double quantity, User user) {
-        this.quantity_pln = quantity;
+    public Wallet(User user) {
         this.user = user;
     }
 }

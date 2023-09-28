@@ -4,6 +4,9 @@ package com.Spendify.Spendify.Expense;
 //import com.Spendify.Spendify.Debt.DebtRepository;
 
 import com.Spendify.Spendify.Invoice.InvoiceRepository;
+import com.Spendify.Spendify.exception.FieldRequiredException;
+import com.Spendify.Spendify.exception.QuantityBiggerThanAmountLeftException;
+import com.Spendify.Spendify.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -40,31 +43,43 @@ public class ExpenseService {
         return expenseRepository
                 .findById(expenseId)
                 .map(expenseDTOMapper)
-                .orElseThrow(() -> new IllegalStateException("Expense not found with ID: " + expenseId));
+                .orElseThrow(() -> new ResourceNotFoundException("Expense not found with ID: " + expenseId));
     }
 
     public void updateExpense(ExpenseUpdateRequest expenseUpdateRequest, Long expenseId) {
-        Expense expense = expenseRepository.getReferenceById(expenseId);
-        if (expenseUpdateRequest.amountLeft() != null) expense
-                .setAmountLeft(expenseUpdateRequest.amountLeft());
+        Expense expense = expenseRepository.findById(expenseId).orElseThrow(() -> new ResourceNotFoundException(
+                "expense with id [%s] not found".formatted(expenseId)
+        ));
 
-        if (expenseUpdateRequest.quantity() != null) expense
-                .setQuantity(expenseUpdateRequest.quantity());
+        if (expenseUpdateRequest.amountLeft() != null)
+            expense.setAmountLeft(expenseUpdateRequest.amountLeft());
+        else
+            throw new FieldRequiredException("Fill this field: amount_left");
+        if (expenseUpdateRequest.amountLeft() > expense.getQuantity())
+            throw new QuantityBiggerThanAmountLeftException("Amount left is bigger than quantity");
         expenseRepository.save(expense);
     }
 
     public void deleteExpense(Long expenseId) {
-        Expense expense = expenseRepository.getReferenceById(expenseId);
+        Expense expense = expenseRepository.findById(expenseId).orElseThrow(() -> new ResourceNotFoundException(
+                "expense with id [%s] not found".formatted(expenseId)
+        ));
         expenseRepository.delete(expense);
     }
 
     public void addExpense(ExpenseAddRequest addRequest) {
-        System.out.println("tet");
-
         Expense expense = new Expense();
-        expense.setQuantity(addRequest.quantity());
+        if (addRequest.quantity() != null)
+            expense.setQuantity(addRequest.quantity());
+        else
+            throw new FieldRequiredException("Fill this field: quantity");
         expense.setDate(new Date());
-        expense.setAmountLeft(addRequest.amountLeft());
+        if (addRequest.amountLeft() != null)
+            expense.setAmountLeft(addRequest.amountLeft());
+        else
+            throw new FieldRequiredException("Fill this field: amount_left");
+        if (addRequest.amountLeft() > addRequest.quantity())
+            throw new QuantityBiggerThanAmountLeftException("Amount left is bigger than quantity");
         expenseRepository.save(expense);
     }
 }

@@ -11,6 +11,9 @@ import com.Spendify.Spendify.Expense.ExpenseUpdateRequest;
 import com.Spendify.Spendify.Invoice.Invoice;
 import com.Spendify.Spendify.Wallet.Wallet;
 import com.Spendify.Spendify.Wallet.WalletRepository;
+import com.Spendify.Spendify.exception.DuplicateResourceException;
+import com.Spendify.Spendify.exception.FieldRequiredException;
+import com.Spendify.Spendify.exception.ResourceNotFoundException;
 import jakarta.servlet.ServletException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,46 +29,72 @@ public class BalanceService {
     private final CurrencyRepository currencyRepository;
     private final WalletRepository walletRepository;
     private final BalanceDTOMapper balanceDTOMapper;
+
     @Autowired
-    public List<BalanceDTO> getAllBalances(){
+    public List<BalanceDTO> getAllBalances() {
         return balanceRepository.findAll()
                 .stream()
                 .map(balanceDTOMapper)
                 .collect(Collectors.toList());
     }
+
     public BalanceDTO getBalance(Long balanceId) {
-        return balanceRepository
-                .findById(balanceId)
+        return balanceRepository.findById(balanceId)
                 .map(balanceDTOMapper)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Balance not found with ID: " + balanceId));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "user with id [%s] not found".formatted(balanceId)
+                ));
     }
-    public void updateBalance (BalanceUpdateRequest balanceUpdateRequest, Long balanceId) {
-        Balance balance = balanceRepository.getReferenceById(balanceId);
-        balance.setAmount(balanceUpdateRequest.amount());
+
+    public void updateBalance(BalanceUpdateRequest balanceUpdateRequest, Long balanceId) {
+        Balance balance = balanceRepository.findById(balanceId).orElseThrow(() -> new ResourceNotFoundException(
+                "user with id [%s] not found".formatted(balanceId)));
+        if (balanceUpdateRequest.amount() != null)
+            balance.setAmount(balanceUpdateRequest.amount());
         balanceRepository.save(balance);
     }
-    public void deleteBalance (Long balanceId) {
-        Balance balance = balanceRepository.getReferenceById(balanceId);
-        balanceRepository.delete(balance);
+
+    public void deleteBalance(Long balanceId) {
+        balanceRepository.findById(balanceId).orElseThrow(() -> new ResourceNotFoundException(
+                "user with id [%s] not found".formatted(balanceId)
+        ));
+        balanceRepository.deleteById(balanceId);
     }
+
     public void addBalance(BalanceAddRequest addRequest) {
-        Currency currency = currencyRepository.findById(addRequest.currencyId())
-                .orElseThrow(() -> new IllegalArgumentException("Currency not found with ID: " + addRequest.currencyId()));
-
-        Wallet wallet = walletRepository.findById(addRequest.walletId())
-                .orElseThrow(() -> new IllegalArgumentException("Wallet not found with ID: " + addRequest.walletId()));
-
+        if (existsByCurrencyIdAndUserId(addRequest.currencyId(), addRequest.walletId())) {
+            throw new DuplicateResourceException(
+                    "balance with this currency already exists for this wallet"
+            );
+        }
+        Currency currency;
+        Wallet wallet;
+        if (addRequest.currencyId() != null)
+            currency = currencyRepository.findById(addRequest.currencyId()).orElseThrow(() -> new ResourceNotFoundException(
+                    "currency with id [%s] not found".formatted(addRequest.currencyId())));
+        else throw new FieldRequiredException("Fill this field: currencyId");
+        if (addRequest.walletId() != null)
+            wallet = walletRepository.findById(addRequest.walletId()).orElseThrow(() -> new ResourceNotFoundException(
+                    "wallet with id [%s] not found".formatted(addRequest.walletId())));
+        else throw new FieldRequiredException("Fill this field: walletId");
         Balance balance = new Balance();
         balance.setCurrency(currency);
         balance.setWallet(wallet);
-        balance.setAmount(addRequest.amount());
+        if (addRequest.amount() != null)
+            balance.setAmount(addRequest.amount());
+        else
+            throw new FieldRequiredException("Fill this field: amount");
         balanceRepository.save(balance);
     }
-    public BalanceService(CurrencyRepository currencyRepository, WalletRepository walletRepository, BalanceRepository balanceRepository, BalanceDTOMapper balanceDTOMapper){
+
+    public BalanceService(CurrencyRepository currencyRepository, WalletRepository walletRepository, BalanceRepository balanceRepository, BalanceDTOMapper balanceDTOMapper) {
         this.currencyRepository = currencyRepository;
         this.walletRepository = walletRepository;
         this.balanceRepository = balanceRepository;
         this.balanceDTOMapper = balanceDTOMapper;
     }
 
+    public boolean existsByCurrencyIdAndUserId(Long currencyId, Long walletId) {
+        return balanceRepository.existsByCurrencyIdAndWalletId(currencyId, walletId);
+    }
 }
