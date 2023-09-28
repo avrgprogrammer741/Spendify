@@ -2,8 +2,7 @@ package com.Spendify.Spendify.Friendship;
 
 import com.Spendify.Spendify.User.User;
 import com.Spendify.Spendify.User.UserRepository;
-import com.Spendify.Spendify.exception.DuplicateFriendshipException;
-import com.Spendify.Spendify.exception.FriendshipYourselfException;
+import com.Spendify.Spendify.exception.DuplicateResourceException;
 import com.Spendify.Spendify.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -42,13 +41,13 @@ public class FriendshipService {
         User friend=userRepository.findById(addRequest.friendId()) .orElseThrow(() -> new ResourceNotFoundException("User with ID [%s] not found".formatted(addRequest.friendId())));
         if (Objects.equals(user.getId(), friend.getId()))
         {
-            throw new FriendshipYourselfException("Friendship with yourself is impossible");
+            throw new DuplicateResourceException("Friendship with yourself is impossible");
         }
         boolean friendshipExists = friendshipRepository.existsByUserAndFriend(user, friend) ||
                 friendshipRepository.existsByUserAndFriend(friend, user);
 
         if (friendshipExists) {
-            throw new DuplicateFriendshipException("Friendship already exists");
+            throw new DuplicateResourceException("Friendship already exists");
         }
         Friendship friendship=new Friendship();
         friendship.setFriendshipDate(new Date());
