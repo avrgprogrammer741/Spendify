@@ -47,7 +47,7 @@ public class InvoiceService {
         invoiceRepository.delete(invoice);
     }
 
-    public void addInvoice(InvoiceAddRequest addRequest) {
+    public InvoiceDTO addInvoice(InvoiceAddRequest addRequest) {
 
         if (addRequest.currencyId()==null)throw new FieldRequiredException("Missing ID currency");
         if (addRequest.userId()==null) throw new FieldRequiredException("Missing ID user");
@@ -61,7 +61,10 @@ public class InvoiceService {
         invoice.setExchangeRate(checkIfNull("exchangeRate",addRequest.exchangeRate()));
         invoice.setUser(user);
         invoiceRepository.save(invoice);
-    }
+        return invoiceRepository
+                .findById(invoice.getInvoiceId())
+                .map(invoiceDTOMapper)
+                .orElseThrow(() -> new ResourceNotFoundException("Invoice with ID [%s] not found".formatted(invoice.getInvoiceId())));    }
     public Double checkIfNull(String pattern, Double element)
     {
         if (element==null)throw new FieldRequiredException("Missing [%s], please fill".formatted(pattern));
