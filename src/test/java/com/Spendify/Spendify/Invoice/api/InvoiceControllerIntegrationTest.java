@@ -38,7 +38,9 @@ public class InvoiceControllerIntegrationTest {
     public void deleteInvoice() throws Exception{
         InvoiceDTO invoiceDTO = createInvoice();
         this.mockMvc.perform(MockMvcRequestBuilders
-                .delete("/api/v1/invoice/{id}", invoiceDTO.invoiceId()));
+                .delete("/api/v1/invoice/{id}", invoiceDTO.invoiceId()))
+                .andExpect(status().is2xxSuccessful());
+
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get("/api/v1/invoice/{id}", invoiceDTO.invoiceId()))
                 .andExpect(status().isNotFound());
