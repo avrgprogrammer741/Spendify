@@ -1,13 +1,15 @@
 package com.Spendify.Spendify.exception;
 
-import org.antlr.v4.runtime.misc.NotNull;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+@Builder
 public record ApiError(
         String path,
         String message,
-        int statusCode,
-        LocalDateTime localDateTime
+        LocalDateTime localDateTime,
+        List<String> additionalData
 ) {
 }

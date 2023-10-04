@@ -57,8 +57,6 @@ public class InvoiceService {
         Invoice invoice = new Invoice();
         invoice.setDate(new Date());
         invoice.setCurrency(currency);
-//        invoice.setPrice(checkIfNull("price",addRequest.price()));
-//        invoice.setExchangeRate(checkIfNull("exchangeRate",addRequest.exchangeRate()));
         invoice.setPrice(addRequest.price());
         invoice.setExchangeRate(addRequest.exchangeRate());
         invoice.setUser(user);
@@ -69,8 +67,4 @@ public class InvoiceService {
                 .orElseThrow(() -> new ResourceNotFoundException("Invoice with ID [%s] not found".formatted(invoice.getInvoiceId())));
     }
 
-    public Double checkIfNull(String pattern, Double element) {
-        if (element == null) throw new FieldRequiredException("Missing [%s], please fill".formatted(pattern));
-        return element;
-    }
 }
