@@ -3,11 +3,18 @@ package com.Spendify.Spendify.Invoice;
 import com.Spendify.Spendify.Currency.Currency;
 import com.Spendify.Spendify.User.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Invoice {
     @Id
     @SequenceGenerator(name = "invoice_sequence",
@@ -48,24 +55,6 @@ public class Invoice {
     @JoinColumn(name = "currency_id")
     private Currency currency;
 
-
-    public Invoice() {
-    }
-
-    public Invoice(Date date, Double price, Currency currency, User user, Double exchangeRate) {
-        this.date = date;
-        this.price = price;
-        this.user = user;
-        this.exchangeRate = exchangeRate;
-        this.currency = currency;
-    }
-
-    public Invoice(Date date, Double price, Currency currency, Double exchangeRate) {
-        this.date = date;
-        this.price = price;
-        this.exchangeRate = exchangeRate;
-        this.currency = currency;
-    }
     @Override
     public String toString() {
         return "Invoice{" +
