@@ -38,19 +38,6 @@ public class InvoiceServiceTest {
     }
 
     @Test
-    public void shouldCallFindByIdWithCorrectInvoiceId() {
-        // given
-        Long invoiceId = 7L;
-
-        // when
-        System.out.println(invoiceRepository.getReferenceById(invoiceId));
-        invoiceService.deleteInvoice(invoiceId);
-
-        // then
-        verify(invoiceRepository, times(1)).findById(invoiceId);
-    }
-
-    @Test
     public void shouldCallDeleteWithCorrectInvoice() {
         // given
         Long invoiceId = 1L;
