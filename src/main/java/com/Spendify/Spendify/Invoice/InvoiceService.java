@@ -46,9 +46,10 @@ public class InvoiceService {
     }
 
     public void deleteInvoice(Long invoiceId) {
-        Invoice invoice = invoiceRepository.
-                findById(invoiceId).orElseThrow(() -> new ResourceNotFoundException("Invoice with ID [%s] not found"
-                .formatted(invoiceId)));
+        Invoice invoice = invoiceRepository
+                .findById(invoiceId)
+                .orElseThrow(() -> new ResourceNotFoundException("Invoice with ID [%s] not found"
+                        .formatted(invoiceId)));
         invoiceRepository.delete(invoice);
     }
 
