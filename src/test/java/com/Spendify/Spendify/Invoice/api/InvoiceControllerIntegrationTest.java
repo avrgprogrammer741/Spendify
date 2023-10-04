@@ -1,6 +1,6 @@
 package com.Spendify.Spendify.Invoice.api;
 
-import com.Spendify.Spendify.Invoice.InvoiceAddRequest;
+import com.Spendify.Spendify.Invoice.InvoiceAddRequestDTO;
 import com.Spendify.Spendify.Invoice.InvoiceDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,15 +9,12 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.util.Date;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -52,7 +49,7 @@ public class InvoiceControllerIntegrationTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(
-                                InvoiceAddRequest.builder()
+                                InvoiceAddRequestDTO.builder()
                                         .userId(1L)
                                         .exchangeRate(2.0)
                                         .price(2.0)
