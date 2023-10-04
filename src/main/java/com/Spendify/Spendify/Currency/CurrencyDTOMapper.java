@@ -13,4 +13,10 @@ public class CurrencyDTOMapper implements Function<Currency, CurrencyDTO> {
                 currency.getName()
         );
     }
+    public CurrencyDTO map(Currency currency) {
+        return CurrencyDTO.builder().
+                id(currency.getId()).
+                name(currency.getName())
+                .build();
+    }
 }

@@ -19,7 +19,7 @@ public class CurrencyService {
     }
     public CurrencyDTO getCurrency(Long currencyId){
         return currencyRepository.findById(currencyId)
-                .map(currencyDTOMapper)
+                .map(currencyDTOMapper::map)
                 .orElseThrow(() -> new IllegalStateException("Currency not found with ID: " + currencyId));
     }
     public CurrencyService(CurrencyRepository currencyRepository, CurrencyDTOMapper currencyDTOMapper){

@@ -1,15 +1,19 @@
 package com.Spendify.Spendify.Currency;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Table(name = "currencies",
         uniqueConstraints = {
                 @UniqueConstraint(name = "currency_name_unique", columnNames = "name")})
 @Entity
+@Builder
 public class Currency {
     @Id
     @SequenceGenerator(name = "user_sequence",
@@ -27,7 +31,4 @@ public class Currency {
             nullable = false
     )
     private String name;
-    public Currency(String name){
-        this.name = name;
-    }
 }
