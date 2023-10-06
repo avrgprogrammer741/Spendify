@@ -3,12 +3,16 @@ package com.Spendify.Spendify.Balance;
 import com.Spendify.Spendify.Currency.Currency;
 import com.Spendify.Spendify.Wallet.Wallet;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 public class Balance {
     @Id
     @SequenceGenerator(name = "balance_sequence",
@@ -36,9 +40,4 @@ public class Balance {
     @ManyToOne
     @JoinColumn(name = "wallet_id")
     private Wallet wallet;
-    public Balance(Currency currency, Wallet wallet, double amount) {
-        this.currency = currency;
-        this.wallet = wallet;
-        this.amount = amount;
-    }
 }

@@ -1,4 +1,4 @@
-package com.Spendify.Spendify.CurrencyServiceTest;
+package com.Spendify.Spendify.Currency.service;
 
 import com.Spendify.Spendify.Currency.*;
 import org.junit.jupiter.api.Test;
@@ -29,8 +29,8 @@ public class CurrencyServiceTest {
         Long id = 111111111L;
         Currency currency = Currency.builder()
                 .build();
-        when(currencyRepository.findById(id)).thenReturn(Optional.of(currency));
         CurrencyDTO currencyDTO = CurrencyDTO.builder().build();
+        when(currencyRepository.findById(id)).thenReturn(Optional.of(currency));
         when(currencyDTOMapper.map(currency)).thenReturn(currencyDTO);
         assertSame(currencyDTO, currencyService.getCurrency(id));
     }

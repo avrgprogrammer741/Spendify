@@ -16,5 +16,19 @@ public class BalanceDTOMapper implements Function<Balance,BalanceDTO> {
                 balance.getAmount()
         );
     }
+    public BalanceDTO map(Balance balance) {
+        return BalanceDTO.builder()
+                .id(balance.getId())
+                .currencyId(balance.getCurrency().getId())
+                .walletId(balance.getWallet().getId())
+                .amount(balance.getAmount())
+                .build();
+    }
+
+    public Balance map(BalanceUpdateRequest balanceUpdateRequest) {
+        return Balance.builder()
+                .amount(balanceUpdateRequest.amount())
+                .build();
+    }
 
 }
