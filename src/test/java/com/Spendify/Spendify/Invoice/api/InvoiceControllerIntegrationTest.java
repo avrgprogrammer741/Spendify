@@ -29,22 +29,24 @@ public class InvoiceControllerIntegrationTest {
     private ObjectMapper objectMapper;
 
     private MockMvc mockMvc;
+
     @BeforeAll
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
 
     @Test
-    public void deleteInvoice() throws Exception{
+    public void deleteInvoice() throws Exception {
         InvoiceDTO invoiceDTO = createInvoice();
         this.mockMvc.perform(MockMvcRequestBuilders
-                .delete("/api/v1/invoice/{id}", invoiceDTO.invoiceId()))
+                        .delete("/api/v1/invoice/{id}", invoiceDTO.invoiceId()))
                 .andExpect(status().is2xxSuccessful());
 
         this.mockMvc.perform(MockMvcRequestBuilders
-                .get("/api/v1/invoice/{id}", invoiceDTO.invoiceId()))
+                        .get("/api/v1/invoice/{id}", invoiceDTO.invoiceId()))
                 .andExpect(status().isNotFound());
     }
+
     private InvoiceDTO createInvoice() throws Exception {
         String response = this.mockMvc
                 .perform(MockMvcRequestBuilders.post("/api/v1/invoice")

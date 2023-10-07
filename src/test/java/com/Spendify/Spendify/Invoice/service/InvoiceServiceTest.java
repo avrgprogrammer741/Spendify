@@ -22,9 +22,6 @@ public class InvoiceServiceTest {
     @Mock
     InvoiceRepository invoiceRepository;
 
-//    @Mock
-//    I quizMapper;
-
     @InjectMocks
     InvoiceService invoiceService;
 
@@ -51,6 +48,7 @@ public class InvoiceServiceTest {
         // then
         verify(invoiceRepository, times(1)).delete(invoice);
     }
+
     @Test
     public void shouldThrowResourceNotFoundExceptionWhenInvoiceNotFound() {
         // given
@@ -64,7 +62,6 @@ public class InvoiceServiceTest {
         // then
         assertEquals("Invoice with ID [6] not found", exception.getMessage());
     }
-
 
 
     @Test

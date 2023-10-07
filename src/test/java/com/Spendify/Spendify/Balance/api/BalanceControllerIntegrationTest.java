@@ -59,7 +59,7 @@ public class BalanceControllerIntegrationTest {
                         .content(objectMapper.writeValueAsBytes(
                                 BalanceAddRequest.builder()
                                         .currencyId(1L)
-                                        .walletId(6L)
+                                        .walletId(1L)
                                         .amount(00.01)
                                         .build()
                         ))
@@ -73,7 +73,7 @@ public class BalanceControllerIntegrationTest {
 
     @Test
     public void updateBalance() throws Exception {
-        Long existingBalanceId = 7L;
+        Long existingBalanceId = 1L;
 
         this.mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/v1/balances/{id}", existingBalanceId))

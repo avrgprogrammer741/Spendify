@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Builder
 public record ExpenseDTO(Long id,
-                               Double quantity,
-                                Date date,
-                               Double left) { }
+                         Double quantity,
+                         Date date,
+                         Double amountLeft) {
+}

@@ -23,7 +23,7 @@ public class ExpenseDTOMapper implements Function<Expense, ExpenseDTO> {
                 .id(expense.getId())
                 .quantity(expense.getQuantity())
                 .date(expense.getDate())
-                .left(expense.getAmountLeft())
+                .amountLeft(expense.getAmountLeft())
                 .build();
     }
 

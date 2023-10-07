@@ -60,6 +60,6 @@ public class ExpenseControllerIntegrationTest {
         this.mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/v1/expenses/{id}", expenseId))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.left", Matchers.equalTo(69.69)));
+                .andExpect(jsonPath("$.amountLeft", Matchers.equalTo(69.69)));
     }
 }

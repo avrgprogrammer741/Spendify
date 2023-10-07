@@ -31,7 +31,7 @@ public class DefaultExceptionHandler {
                 additionalDataList
         );
 
-        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+    return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(DuplicateResourceException.class)

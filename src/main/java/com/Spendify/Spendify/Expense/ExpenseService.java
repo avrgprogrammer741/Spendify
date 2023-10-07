@@ -46,13 +46,10 @@ public class ExpenseService {
 
     public Optional<ExpenseDTO> updateExpense(ExpenseUpdateRequest expenseUpdateRequest, Long expenseId) {
         Expense expense = expenseRepository.findById(expenseId).orElseThrow(() -> new ResourceNotFoundException(
-                "expense with id [%s] not found".formatted(expenseId)
+                "expense with id [%s] not found" .formatted(expenseId)
         ));
 
-        if (expenseUpdateRequest.amountLeft() != null)
-            expense.setAmountLeft(expenseUpdateRequest.amountLeft());
-        else
-            throw new FieldRequiredException("Fill this field: amount_left");
+        expense.setAmountLeft(expenseUpdateRequest.amountLeft());
         if (expenseUpdateRequest.amountLeft() > expense.getQuantity())
             throw new QuantityBiggerThanAmountLeftException("Amount left is bigger than quantity");
         expenseRepository.save(expense);
@@ -61,7 +58,7 @@ public class ExpenseService {
 
     public void deleteExpense(Long expenseId) {
         Expense expense = expenseRepository.findById(expenseId).orElseThrow(() -> new ResourceNotFoundException(
-                "expense with id [%s] not found".formatted(expenseId)
+                "expense with id [%s] not found" .formatted(expenseId)
         ));
         expenseRepository.delete(expense);
     }
