@@ -1,12 +1,16 @@
 package com.Spendify.Spendify.Expense;
 
+import com.Spendify.Spendify.Balance.BalanceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/expenses/")
+@Validated
 public class ExpenseController {
     private final ExpenseService expenseService;
 
@@ -21,14 +25,14 @@ public class ExpenseController {
     }
 
     @GetMapping("/{expenseId}")
-    public ExpenseDTO getExpenses(@PathVariable("expenseId") Long expenseId) {
-        return expenseService.getExpense(expenseId);
+    public ResponseEntity<ExpenseDTO> getExpense(@PathVariable("expenseId") Long expenseId) {
+        return expenseService.getExpense(expenseId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @PatchMapping("/{expenseId}")
-    public void updateExpense(@RequestBody ExpenseUpdateRequest expenseUpdateRequest,
+    @PutMapping("/{expenseId}")
+    public ResponseEntity<ExpenseDTO> updateExpense(@Validated @RequestBody ExpenseUpdateRequest expenseUpdateRequest,
                               @PathVariable("expenseId") Long expenseId) {
-        expenseService.updateExpense(expenseUpdateRequest, expenseId);
+        return expenseService.updateExpense(expenseUpdateRequest, expenseId).map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
     }
 
     @DeleteMapping("/{expenseId}")
@@ -37,7 +41,7 @@ public class ExpenseController {
     }
 
     @PostMapping
-    public void addExpense(@RequestBody ExpenseAddRequest addRequest) {
-        expenseService.addExpense(addRequest);
+    public ResponseEntity<ExpenseDTO> addExpense(@Validated @RequestBody ExpenseAddRequest addRequest) {
+        return expenseService.addExpense(addRequest).map(ResponseEntity::ok).orElse(ResponseEntity.badRequest().build());
     }
 }

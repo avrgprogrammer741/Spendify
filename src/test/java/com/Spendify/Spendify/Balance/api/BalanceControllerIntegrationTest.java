@@ -94,7 +94,7 @@ public class BalanceControllerIntegrationTest {
         this.mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/v1/balances/{id}", existingBalanceId))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.amount", Matchers.equalTo(50.0))); // Verify the updated amount
+                .andExpect(jsonPath("$.amount", Matchers.equalTo(50.0)));
     }
 
 

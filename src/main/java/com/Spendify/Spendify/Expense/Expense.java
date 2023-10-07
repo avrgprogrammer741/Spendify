@@ -3,6 +3,8 @@ package com.Spendify.Spendify.Expense;
 
 import com.Spendify.Spendify.Invoice.Invoice;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +13,8 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Expense {
 
@@ -25,11 +29,5 @@ public class Expense {
     private Double amountLeft;
     @Column(name = "Date", nullable = false)
     private Date date;
-
-    public Expense(Double quantity, Date date, Double amountLeft) {
-        this.quantity = quantity;
-        this.amountLeft = amountLeft;
-        this.date = date;
-    }
 
 }

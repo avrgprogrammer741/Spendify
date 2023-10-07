@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,12 +23,10 @@ public class ExpenseService {
 
 
     public ExpenseService(ExpenseRepository expenseRepository,
-//                          DebtRepository debtRepository,
                           InvoiceRepository invoiceRepository,
                           ExpenseDTOMapper expenseDTOMapper) {
         this.expenseRepository = expenseRepository;
         this.expenseDTOMapper = expenseDTOMapper;
-//        this.debtRepository = debtRepository;
         this.invoiceRepository = invoiceRepository;
     }
 
@@ -39,14 +38,13 @@ public class ExpenseService {
 
     }
 
-    public ExpenseDTO getExpense(Long expenseId) {
+    public Optional<ExpenseDTO> getExpense(Long expenseId) {
         return expenseRepository
                 .findById(expenseId)
-                .map(expenseDTOMapper)
-                .orElseThrow(() -> new ResourceNotFoundException("Expense not found with ID: " + expenseId));
+                .map(expenseDTOMapper::map);
     }
 
-    public void updateExpense(ExpenseUpdateRequest expenseUpdateRequest, Long expenseId) {
+    public Optional<ExpenseDTO> updateExpense(ExpenseUpdateRequest expenseUpdateRequest, Long expenseId) {
         Expense expense = expenseRepository.findById(expenseId).orElseThrow(() -> new ResourceNotFoundException(
                 "expense with id [%s] not found".formatted(expenseId)
         ));
@@ -58,6 +56,7 @@ public class ExpenseService {
         if (expenseUpdateRequest.amountLeft() > expense.getQuantity())
             throw new QuantityBiggerThanAmountLeftException("Amount left is bigger than quantity");
         expenseRepository.save(expense);
+        return expenseRepository.findById(expenseId).map(expenseDTOMapper::map);
     }
 
     public void deleteExpense(Long expenseId) {
@@ -67,7 +66,7 @@ public class ExpenseService {
         expenseRepository.delete(expense);
     }
 
-    public void addExpense(ExpenseAddRequest addRequest) {
+    public Optional<ExpenseDTO> addExpense(ExpenseAddRequest addRequest) {
         Expense expense = new Expense();
         if (addRequest.quantity() != null)
             expense.setQuantity(addRequest.quantity());
@@ -81,5 +80,6 @@ public class ExpenseService {
         if (addRequest.amountLeft() > addRequest.quantity())
             throw new QuantityBiggerThanAmountLeftException("Amount left is bigger than quantity");
         expenseRepository.save(expense);
+        return this.getExpense(expense.getId());
     }
 }
