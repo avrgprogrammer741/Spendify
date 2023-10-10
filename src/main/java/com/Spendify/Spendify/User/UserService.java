@@ -31,21 +31,21 @@ public class UserService {
         return userRepository.findById(userId)
                 .map(userDTOMapper)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "user with id [%s] not found".formatted(userId)
+                        "User with ID [%s] not found".formatted(userId)
                 ));
     }
 
     public void deleteUser(Long userId) {
         userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                "user with id [%s] not found".formatted(userId)
+                "User with ID [%s] not found".formatted(userId)
         ));
         userRepository.deleteById(userId);
     }
 
     public void updateUser(Long userId, UserUpdateRequest updateRequest) {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(
-                "user with id [%s] not found".formatted(userId)
+                "User with ID [%s] not found".formatted(userId)
         ));
 
         if (updateRequest.surname() != null) user
@@ -63,7 +63,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void addUser(UserAddRequest addRequest) {
+    public void addUser(UserAddRequestDTO addRequest) {
         if (existsUserWithEmail(addRequest.email())) {
             throw new DuplicateResourceException(
                     "email already taken"
