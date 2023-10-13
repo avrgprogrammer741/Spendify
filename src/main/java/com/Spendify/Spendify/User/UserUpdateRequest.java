@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 @Builder
-
 public record UserUpdateRequest(
         @NotNull(message = "name can't be null")
         String name,

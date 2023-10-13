@@ -63,7 +63,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void addUser(UserAddRequestDTO addRequest) {
+    public UserDTO addUser(UserAddRequestDTO addRequest) {
         if (existsUserWithEmail(addRequest.email())) {
             throw new DuplicateResourceException(
                     "email already taken"
@@ -78,6 +78,10 @@ public class UserService {
                 addRequest.isActive()
         );
         userRepository.save(user);
+        return userRepository.findById(user.getId())
+                .map(userDTOMapper)
+                .orElseThrow(()->new ResourceNotFoundException("User with ID [%s] is not found"
+                .formatted(user.getId())));
     }
 
     public boolean existsUserWithEmail(String email) {

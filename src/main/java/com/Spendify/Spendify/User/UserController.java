@@ -1,6 +1,9 @@
 package com.Spendify.Spendify.User;
 
+import com.Spendify.Spendify.Invoice.InvoiceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,14 +34,14 @@ public class UserController {
         userService.deleteUser(userId);
     }
 
-    @PatchMapping("{userId}")
+    @PutMapping("{userId}")
     public void updateUser(@PathVariable("userId") Long userId,
                            @RequestBody UserUpdateRequest userUpdateRequest) {
-        userService.updateUser(userId, userUpdateRequest);
+         userService.updateUser(userId, userUpdateRequest);
     }
-
     @PostMapping
-    public void addUser(@RequestBody UserAddRequestDTO addRequest) {
-        userService.addUser(addRequest);
+    public ResponseEntity<UserDTO> addUser(@RequestBody UserAddRequestDTO addRequest) {
+        UserDTO createdUser=userService.addUser(addRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 }
